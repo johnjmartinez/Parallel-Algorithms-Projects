@@ -1,0 +1,30 @@
+Assignment 2 Due: June 29th
+
+
+For each of the problems in this assignment use an efficient parallel algorithm. Write a sequential algorithm for each of the problems and verify that thesolutions are identical for your test input. Submit your source code and an output file which shows that answers given by the parallel algorithm matches that given by the sequential algorithm.
+
+
+## PP, JM
+-- min of A (reduce) ... A not necessarily sorted (since 3.)
+-- confused by b ... not sure what he's asking there
+1. (20 pts) Write a parallel program in CUDA that reads a text file 'inp.txt' and performs various computations on the data in the file. The file contains a list of integers in the range [0-999] separated by commas. Your program should read this file in an array A of integers of size n.
+    (a, 10 pts) Compute minA, the minimum value in the array. Your algorithm should take O(log n) time.
+    
+    (b, 10 pts) Compute an array B such that B[i] is the last digit of A[i] for all i. Your algorithm should take O(1) time assuming n processors.
+
+
+## ??
+-- Counting nums in specific ranges
+2. (40 pts) Read an array A as in the first question.
+    (a, 10 pts) Create an array B of size 10 that keeps a count of the entries in each of the ranges:[0, 99], [100, 199], [200, 299], . .For this part of the problem, maintain an array B in global memory of GPU.
+    
+    (b, 10 pts) Repeat part (a) but first use the shared memory in a block for updating the local copy of B in each block. Once every block is done, add all local copies to get the global copy of B.
+    
+    (c, 20 pts) Create an array of size 10 that uses B to compute C which keeps count of the entries in each of the ranges:[0,99], [0,199], [0,299],. . . , [0, 999]. Note that the ranges are different from part (a). For this part of the problem, you must not use array A.
+
+
+## ??
+-- Radix sorting
+3. (40 pts) Read an array A as in the first question. Compute an array D such that it is sorted in ascending order using Radix Sort.
+
+
