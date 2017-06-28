@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
     string delim = ",";
     while ( (next = tmp.find(delim, last)) != string::npos) { 
         a[x] = stoi( tmp.substr(last, next-last) );
-        last = next+1; 
+        last = next + 1; 
         x++;
     } 
     a[x] = stoi( tmp.substr(last) ); // compile using nvcc -std=c++11 
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
     //printArray(a, count); // DEBUG
     //printArray(A, count); // DEBUG
     
-    int blockSize = 32;
+    int blockSize = 1024;
     int numBlocks = (count + blockSize - 1) / blockSize;
     countRanges<<<numBlocks, blockSize>>>(count, A, B);
     cudaDeviceSynchronize();  // Wait for GPU to finish
