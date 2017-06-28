@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     
     // COUNT RANGES
     for(int i=0; i < count ; i++) {
-        x = A[i] / 100;             // POSITIVE TRUNCATION
+        x = A[i] / 100;                   // POSITIVE TRUNCATION
         cout << A[i] << ":" << x << " ";  // DEBUG
 
         B[x]++;
