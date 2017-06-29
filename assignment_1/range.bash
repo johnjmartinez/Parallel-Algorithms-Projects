@@ -7,18 +7,18 @@ nvcc -std=c++11 rangeCount.cu -o r_par
 set +x
 
 echo
-echo "Expected results using file_1000000.txt "
+echo "Expected results using file_450.txt "
 echo "(first line Q2a,b, second line Q2c) : "
-echo " 100128	100146	99786	99946	100170	99652	100130	100182	99926	99934	"
-echo " 100128	200274	300060	400006	500176	599828	699958	800140	900066	1000000	"
+echo " 50  49  40  36  48  50  36  52  51  38 "
+echo " 50  99  139 175 223 273 309 361 412 450"
 echo
 echo "Sequential run:"
 set -x
-./r_seq  file_1000000.txt  1000000
+./r_seq  file_450.txt  450
 set +x
 echo
 echo "Parallel run:"
 set -x
-./r_par  file_1000000.txt  1000000
+./r_par  file_450.txt  450
 set +x
 echo
