@@ -18,19 +18,46 @@ using namespace std;
 */    
 
 __global__
-void countRanges (int count, int *A, int *B) {
+void countRangesGlobal(int size, int *A, int *B) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i >= count) return;
-    int x = A[i] / 100; // Find position in B using positive truncation
-    //printf("x:%d\tAi:%d\ti:%d\tblk:%d\tthr:%d\n", x, A[i], i, blockIdx.x, threadIdx.x); // DEBUG 
+    if (i >= size) return;
+    int x = A[i] / 100; // Find position x in B using positive truncation
     atomicAdd(&B[x], 1);
 }
 
+__global__
+void countRangesShared(int size, int *A, int *B) {
+    __shared__ int tmp[10];
+    
+    int tGlobalId = blockIdx.x * blockDim.x + threadIdx.x;
+    int tId = threadIdx.x;
+    if (tGlobalId >= size) return;
+    int x = A[tGlobalId] / 100; // Find position x in B using positive truncation
+    
+    if (tId < 10) 
+        tmp[tId] = 0; // 0 init share tmp mem
+    __syncthreads();
+    
+    atomicAdd(&tmp[x], 1);
+    __syncthreads();
+
+    if (tId < 10)
+        atomicAdd(&B[tId],tmp[tId]);
+}
+
+__global__
 void scan (int size, int *B, int *C) {
-    for(int i=0; i < size ; i++) {
-        if (i==0) C[i] = B[i];
-        else C[i] = B[i] + C[i-1];
+     __shared__ int tmp[10];
+    int curr = threadIdx.x;
+    tmp[curr] = B[curr];
+    
+    for (int i = 1; i < size; i <<= 1) {
+        __syncthreads();
+        if (curr >= i)  tmp[curr] += tmp[curr-i];
     }
+    
+    C[curr] = tmp[curr];
+     __syncthreads();
 }
 
 // output contents of array to screen
@@ -38,7 +65,7 @@ void printArray(int arr[], int size) {
     for ( int i = 0; i < size; i++ ) {
         cout << arr[i] << '\t';
     }
-    cout << endl << endl;
+    cout << endl ;
 }
 
 int main(int argc, char *argv[]) {
@@ -55,7 +82,7 @@ int main(int argc, char *argv[]) {
     buffer << InFile.rdbuf();
     //cout << tmp << "\n";  // DEBUG
     
-    int a[count], b[10] = {0}, c[10] = {0};
+    int a[count], b[10] = {}, c[10] = {};
 
     // READ FILE INTO a[]
     int x = 0;
@@ -71,49 +98,47 @@ int main(int argc, char *argv[]) {
 
     // Allocate space for device copies of a, b, c 
     int *A, *B, *C;
-    int size = sizeof(int);
-    int ten_size = 10*size;
-    cudaMallocManaged(&A, count*size);
+    int int_size = sizeof(int);
+    int ten_size = 10*int_size;
+    cudaMallocManaged(&A, count*int_size);
     cudaMallocManaged(&B, ten_size);
-    cudaMallocManaged(&C, ten_size);
     
     // Copy inputs to device
-    cudaMemcpy(A, &a, count*size, cudaMemcpyHostToDevice);
+    cudaMemcpy(A, &a, count*int_size, cudaMemcpyHostToDevice);
     cudaMemcpy(B, &b, ten_size, cudaMemcpyHostToDevice); 
-    cudaMemcpy(C, &c, ten_size, cudaMemcpyHostToDevice); 
-    
-    //printArray(a, count); // DEBUG
-    //printArray(A, count); // DEBUG
-    
+       
     int blockSize = 1024;
     int numBlocks = (count + blockSize - 1) / blockSize;
-    countRanges<<<numBlocks, blockSize>>>(count, A, B);
-    cudaDeviceSynchronize();  // Wait for GPU to finish
     
-    // Copy result back to host
+    // Q2a
+    countRangesGlobal<<<numBlocks, blockSize>>>(count, A, B);
+    cudaDeviceSynchronize();  // Wait for GPU to finish
+    cudaMemcpy(&b, B, ten_size, cudaMemcpyDeviceToHost); 
+    printArray(b, 10); // DEBUG
+    cudaFree(B);    
+
+    // Q2b
+    for (int i=0; i<10; i++) { b[i] = 0; }   
+    cudaMallocManaged(&B, ten_size);
+    cudaMemcpy(B, &b, ten_size, cudaMemcpyHostToDevice); 
+    countRangesShared<<<numBlocks, blockSize>>>(count, A, B);
+    cudaDeviceSynchronize();  // Wait for GPU to finish
     cudaMemcpy(&b, B, ten_size, cudaMemcpyDeviceToHost); 
     printArray(b, 10); // DEBUG
 
-    //scan(10, B, C);
-    //cudaDeviceSynchronize();  // Wait for GPU to finish
-    //printArray(c, 10); // DEBUG
-    
-    // FREE MEM
+    // Q2c
     cudaFree(A);
+    cudaMallocManaged(&C, ten_size);
+    scan<<<1, 10, ten_size>>>(10, B, C);
+    cudaDeviceSynchronize();  // Wait for GPU to finish
+    
+    cudaMemcpy(&b, B, ten_size, cudaMemcpyDeviceToHost); 
+    cudaMemcpy(&c, C, ten_size, cudaMemcpyDeviceToHost); 
     cudaFree(B);    
     cudaFree(C);    
-
+    
+    printArray(c, 10); // DEBUG
+    
     return 0;
   
 } //END MAIN
-
-
-// http://www.nvidia.com/docs/IO/116711/sc11-cuda-c-basics.pdf
-// http://people.ds.cam.ac.uk/pmb39/GPULectures/Lecture_2.pdf
-// http://cuda-programming.blogspot.com/2013/03/computing-histogram-on-cuda-cuda-code_8.html
-// https://stackoverflow.com/questions/15782325/cuda-programming-histogram
-// http://developer.download.nvidia.com/compute/cuda/1.1-Beta/x86_website/projects/histogram64/doc/histogram.pdf
-// http://www.drdobbs.com/parallel/a-robust-histogram-for-massive-paralleli/240161600
-// http://15418.courses.cs.cmu.edu/spring2017/
-// https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html
-// https://link.springer.com/chapter/10.1007%2F978-3-642-37410-4_23
