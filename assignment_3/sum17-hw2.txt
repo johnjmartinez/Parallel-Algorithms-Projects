@@ -1,0 +1,19 @@
+Assignment 3 Due: July 21  
+
+Write a sequential algorithm for each of the problems and verify that the solutions are identical for your test input. 
+Submit your source code and an output file which shows that answers given by the parallel algorithm matches that given by the sequential algorithm. 
+The source code (C/C++) of the programming part must be uploaded through the canvas before the end of the due date. 
+The assignment should be done in teams of two. Please zip and name the source code as [EID1 EID2].zip. 
+
+
+1. (50 points) 
+Write a program using MPI to solve Row-wise Matrix Vector Multiplication. You will be provided with input files matrix.txt and vector.txt. 
+Your result must be output to a file named result.txt. You are only allowed to read in the matrix M and vector V from one MPI process.  Similarly, you need to output to the result file at a single MPI process. 
+
+    Inputs: Read an NxM Matrix stored in a text file named matrix.txt. Read a Vector V of size M stored in text file vector.txt 
+    Outputs: Write the output vector to file result.txt. Divide the input matrix into roughly equal sized chunks n/p chunks (total rows: n, total processes: p). 
+             You cannot assume that n is divisible by p. Each process will work on its own chunk and send the result back to the process which is responsible for writing the result. 
+
+2. (50 points) 
+Read an array A as in the first question from a file named input.txt.  Compute an array D such that it is sorted in ascending order using Parallel HyperQuicksort. Divide the input array into roughly equal sized chunks n/p chunks (total rows: n, total processes: p) 
+After HyperQuickSort the array D is split among p processors such that the higher numbered processor has higher entries. Write the output in a file called output.txt
