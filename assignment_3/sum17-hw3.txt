@@ -15,5 +15,5 @@ Your result must be output to a file named result.txt. You are only allowed to r
              You cannot assume that n is divisible by p. Each process will work on its own chunk and send the result back to the process which is responsible for writing the result. 
 
 2. (50 points) 
-Read an array A as in the first question from a file named input.txt.  Compute an array D such that it is sorted in ascending order using Parallel HyperQuicksort. Divide the input array into roughly equal sized chunks n/p chunks (total rows: n, total processes: p) 
+Read an array A as in the first question from a file named input.txt.  Compute an array D such that it is sorted in ascending order using Parallel Hyper Quick sort. Divide the input array into roughly equal sized chunks n/p chunks (total rows: n, total processes: p) 
 After HyperQuickSort the array D is split among p processors such that the higher numbered processor has higher entries. Write the output in a file called output.txt
