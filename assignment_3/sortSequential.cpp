@@ -7,39 +7,39 @@
 //#define debug
 using namespace std;
      
-int chunk(vector<int> &a, int l, int u) {
-    int v, i, j, temp;
-    v = a[l];
-    i = l;
-    j = u+1;
+int chunk(vector<int>& a, int l, int u) {
+    int v, i, j, tmp;
+    v = a[l]; 
+    i = l;   // lower bound iterator
+    j = u+1; // upper bound iterator
     
     do {
-        do
+        do // iterate until first unordered in left given v
             i++;
-        while( a[i]<v && i<=u);
+        while( a[i]<v && i<=u ); 
         
-        do
+        do // iterate until  first unordered in right given v
             j--;
-        while(v  <a[j]);
+        while(v < a[j]); 
         
-        if(i < j) {
-            temp = a[i];
-            a[i] = a[j];
-            a[j] = temp;
-        }
+        if(i < j) {     // swap a[i] and a[j];
+            tmp = a[i];
+            
+            a[j] = tmp;
+        } 
         
-    } while(i < j);
+    } while (i < j); // keep iterating until i and j cross
     
-    a[l] = a[j];
+    a[l] = a[j]; 
     a[j] = v;
     
     return(j);
 }
 
-void quickSortSeq(vector<int> &a, int low, int upr) {
+void quickSortSeq(vector<int>& a, int low, int upr) {
     if(low < upr) {
         int j = chunk(a, low, upr);
-        quickSortSeq(a, low, j-1);
+        quickSortSeq(a, low, j-1); 
         quickSortSeq(a, j+1, upr);
     }
 }
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
     
     quickSortSeq(A, 0, A.size()-1);
    
-    for(auto x:A)
+    for(auto& x:A)
          cout << ' ' << x;
     cout << endl;
     return 0;
