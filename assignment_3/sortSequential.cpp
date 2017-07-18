@@ -7,7 +7,7 @@
 //#define debug
 using namespace std;
      
-int chunk(vector<int>& a, int l, int u) {
+int pivot(vector<int>& a, int l, int u) {
     int v, i, j, tmp;
     v = a[l]; 
     i = l;   // lower bound iterator
@@ -38,7 +38,7 @@ int chunk(vector<int>& a, int l, int u) {
 
 void quickSortSeq(vector<int>& a, int low, int upr) {
     if(low < upr) {
-        int j = chunk(a, low, upr);
+        int j = pivot(a, low, upr);
         quickSortSeq(a, low, j-1); 
         quickSortSeq(a, j+1, upr);
     }
