@@ -1,10 +1,10 @@
 #!/bin/bash
 set -x
 
-python createInput.py 10000
+python createInput.py 48
 
 g++ sortSequential.cpp -std=c++14 -o sortSequential
 ./sortSequential input.txt
 
 mpic++ hyperQuickSortMpi.cpp -std=c++14 -o sortParallel
-mpirun -n 4  sortParallel input.txt
+mpirun -n 8  sortParallel input.txt

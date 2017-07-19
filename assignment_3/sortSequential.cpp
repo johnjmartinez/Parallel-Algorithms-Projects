@@ -24,7 +24,7 @@ int pivot(vector<int>& a, int l, int u) {
         
         if(i < j) {     // swap a[i] and a[j];
             tmp = a[i];
-            
+            a[i] = a[j];
             a[j] = tmp;
         } 
         
