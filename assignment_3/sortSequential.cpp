@@ -1,5 +1,4 @@
 #include <fstream>
-#include <future>
 #include <iostream>
 #include <iterator>
 #include <vector>
@@ -66,9 +65,9 @@ int main(int argc, char *argv[]) {
     
     quickSortSeq(A, 0, A.size()-1);
    
-    for(auto& x:A)
-         cout << ' ' << x;
-    cout << endl;
+    ofstream outFile("./output_serial.txt");
+    for (const auto& e : A) outFile << e << " ";
+    
     return 0;
   
    

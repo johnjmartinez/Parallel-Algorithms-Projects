@@ -123,20 +123,18 @@ int main(int argc, char *argv[]) {
                              MASTER );    
                                    
     HQsort(chunkVect, chunkSize);
+        
+    MPI::COMM_WORLD.Scan( &chunkSize, &local, 1, MPI::INT, MPI::SUM); // calculate displacement for final D[]
+    MPI::COMM_WORLD.Gather(&local, 1, MPI::INT, &displacement[id+1], 1, MPI::INT, MASTER); // add to root's displace vect
+    MPI::COMM_WORLD.Gather(&chunkSize, 1, MPI::INT, &count[id], 1, MPI::INT, MASTER); // get procs results count
     
-    MPI::COMM_WORLD.Scan( &chunkSize, &local, 1, MPI::INT, MPI::SUM);
-    
-    MPI::COMM_WORLD.Gather(&local, 1, MPI::INT, &displacement[id+1], 1, MPI::INT, MASTER);
-    MPI::COMM_WORLD.Gather(&chunkSize, 1, MPI::INT, &count[id], 1, MPI::INT, MASTER);
-    
-    MPI::COMM_WORLD.Gatherv(&chunkVect, chunkSize, MPI::INT, &D.front(), &count[id], &displacement[id], MPI::INT, MASTER);
+    MPI::COMM_WORLD.Gatherv( &chunkVect.front(), chunkSize, MPI::INT,  // get each chunk from each proc                     
+                             &D.front(), &count.front(), &displacement.front(), MPI::INT, // receive it in D accordingly
+                             MASTER );
 
     if ( id == MASTER ) { 
-        for(auto& x:displacement) cout << x << '\t'; cout << endl;    
-        for(auto& x:count) cout << x << '\t'; cout << endl;    
-
         ofstream outFile("./output.txt");
-        for (const auto &e : D) outFile << e << " ";
+        for (const auto& e : D) outFile << e << " ";
     }
     
     MPI:: Finalize();
