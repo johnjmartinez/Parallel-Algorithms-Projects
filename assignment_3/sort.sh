@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-python createInput.py $((1024*1024)) # 1M   
+python createInput.py 1024 # $((1024*1024)) # 1M   
 
 g++ sortSequential.cpp -std=c++14 -o sortSequential
 time ./sortSequential input.txt     # creates output_serial.txt
