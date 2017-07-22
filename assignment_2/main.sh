@@ -7,11 +7,15 @@ ignore="-Wno-deprecated-gpu-targets"
 g++  -std=c++11 rangeCountSequential.cpp -o q2_seq $ignore
 nvcc -std=c++11 rangeCount.cu -o q2_par $ignore
 
-for x in inp[1-5].txt
+for x in inp[45].txt
 do
     num=$(head -n1 $x)
-    blks=$(( $num/1024 + 1 ))
-    tail -n1 $x  > inp_${num}.txt  
+    if [[ $num > 24000 ]]; then
+        blks=$(( $num/256 + 1 ))
+    else
+        blks=$(( $num/1024 + 1 ))
+    fi
+    tail -n1 $x  | sed "s/ //g" > inp_${num}.txt  
     echo inp_${num}.txt
     
     for cu in array_*.cu radix_sort.cu
