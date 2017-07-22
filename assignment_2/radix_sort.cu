@@ -5,8 +5,8 @@
 #include <time.h>
 #include <cuda.h>
  
-#define nthreads 450
-#define nblocks 1
+#define nthreads 639587
+#define nblocks 625
 
 //Step 1 - split the bits and create an intermediate array of all the bits in 0th, 1th ,2nd--9th position 
 //Step 2 - Prefix sum of the intermediate array

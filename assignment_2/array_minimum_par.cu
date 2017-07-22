@@ -4,8 +4,8 @@
 #include <time.h>
 #include <cuda.h>
 
-#define nthreads 450 
-#define nblocks 1
+#define nthreads 639587
+#define nblocks 625
 
 /*
 1. Write a parallel program in CUDA that reads a text file 'inp.txt'that contains a list of integers in the range [0-999] separated by commas. Your program should read this file in an array A of integers of size n.

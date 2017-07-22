@@ -5,8 +5,8 @@
 #include <cuda.h>
 
 
-#define nthreads 512
-#define nblocks 1
+#define nthreads 639587
+#define nblocks 625
 /*
 1. Write a parallel program in CUDA that reads a text file 'inp.txt'that contains a list of integers in the range [0-999] separated by commas. Your program should read this file in an array A of integers of size n.
     (b, 10 pts) Compute an array B such that B[i] is the last digit of A[i] for all i. Your algorithm should take O(1) time assuming n processors.
