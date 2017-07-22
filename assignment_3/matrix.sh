@@ -3,8 +3,10 @@
 rows=$1
 cols=$2
 
+out=matrix_${rows}_${cols}.txt
+
 python ./createMatrix.py $rows $cols
-echo "$rows $cols" > input_${rows}_${cols}.txt
-cat tmp >> matrix_${rows}_${cols}.txt
+echo "$rows $cols" > $out
+cat tmp >> $out
 rm tmp
 
