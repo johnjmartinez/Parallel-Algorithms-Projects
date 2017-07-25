@@ -4,42 +4,63 @@
 #include <time.h>
 #include <cuda.h>
 
-#define DATASIZE    100000
+#define DATASIZE    1000000
 #define BLOCK_SIZE    512
+
+void printArray(int a[],int n)
+{
+    FILE *fptr;
+    fptr = fopen("Brick_sort_result.txt", "w");
+    
+    for(int i=0; i < n; i++)
+    {
+        fprintf(fptr,"%d ",a[i]);
+       
+        
+    if((i+1)%10 == 0)       
+    fprintf(fptr,"\n");
+     
+ }
+    
+    fclose(fptr);
+}
+
+
+
 
 __global__ void oddevensort ( int * input, unsigned int size, int i )
 {
 
-unsigned int tid = threadIdx.x;
-//unsigned int myid = tid + blockDim.x * blockIdx.x;
+unsigned int myId = threadIdx.x + blockDim.x * blockIdx.x;
 
 int temp;
-int p;
 
-if( i % 2 == 0 )
-{
-p=tid*2;
+if(myId > size)
+return;
 
-if(input[p]>input[p+1])
+if( i == 0 )
 {
-temp = input[p+1];
-input[p+1] = input[p];
-input[p] = temp;
+
+//For even threads
+if(( myId % 2 == 0 && input[myId] > input[myId+1]))
+{
+temp = input[myId+1];
+input[myId+1] = input[myId];
+input[myId] = temp;
 }
 }
 else
 {
-p=tid*2+1;
 
-if(p<size-1){
-if(input[p]>input[p+1])
+//for odd threads
+if(( myId % 2 != 0 && input[myId] > input[myId+1]))
 {
-temp = input[p+1];
-input[p+1] = input[p];
-input[p] = temp;
+temp = input[myId+1];
+input[myId+1] = input[myId];
+input[myId] = temp;
 }
 }
-}
+
 __syncthreads();
 }
 
@@ -65,10 +86,12 @@ int *d_input, *d_output;
 cudaMalloc((void**)&d_input, arr_size );
 cudaMalloc((void**)&d_output, arr_size );
 
+srand(time(NULL));
+
 //generating host array values
 for( int i = 0; i < DATASIZE; i++ )
 {
-h_input[i] = rand() % 900;
+h_input[i] = rand()%999;
 }
 
 
@@ -82,18 +105,17 @@ printf("%d ", h_input[i] );
 }
 printf("\n");
 
-//cudaMemset( d_output, 0, arr_size );
-//
+
 //copy from host to device
 cudaMemcpy( d_input, h_input, arr_size, cudaMemcpyHostToDevice);
 
-//int    nthreads( BLOCK_SIZE );
-int   nblocks( ceil((DATASIZE-1)/(float)BLOCK_SIZE) + 1 );
+int nthreads( BLOCK_SIZE );
+int nblocks( ceil((DATASIZE-1)/(float)BLOCK_SIZE) + 1 );
 
 cudaEventRecord(start);
 for( int i=0; i<DATASIZE; i++)
 {
-oddevensort<<< nblocks,DATASIZE/2 >>>( d_input, DATASIZE, i );
+oddevensort<<< nblocks,nthreads >>>( d_input, DATASIZE, i%2 );
 }
 cudaEventRecord(stop);
 
@@ -102,17 +124,12 @@ cudaEventElapsedTime(&et, start, stop);
 printf("Time is: %f\n",et);
 
 cudaMemcpy( h_output, d_input, arr_size, cudaMemcpyDeviceToHost);
-printf("Sorted array:\n");
-if(DATASIZE<=100)
-{
-for( int i=0; i<DATASIZE; i++ )
-{
-printf("%d ",h_output[i]);
-}
-}
+
+printArray(h_output,DATASIZE);
+
 printf("\n");
 
-cudaFree( d_input );
-cudaFree( d_output );
+cudaFree(d_input);
+cudaFree(d_output);
 return 0;
 }
