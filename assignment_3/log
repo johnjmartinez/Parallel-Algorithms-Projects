@@ -1,16 +1,16 @@
-+ python createInput.py 1024
++ python createInput.py 1048576
 + g++ sortSequential.cpp -std=c++14 -o sortSequential
 + ./sortSequential input.txt
-Read 1024 numbers
+Read 1048576 numbers
 
-real	0m0.003s
-user	0m0.000s
-sys	0m0.000s
+real	0m0.579s
+user	0m0.572s
+sys	0m0.004s
 + mpic++ hyperQuickSortMpi.cpp -std=c++14 -o sortParallel
 + mpirun -n 16 sortParallel input.txt
-Read 1024 numbers
+Read 1048576 numbers
 
-real	0m1.494s
-user	0m0.368s
-sys	0m0.228s
+real	0m3.177s
+user	0m4.096s
+sys	0m3.384s
 + diff output_serial.txt output.txt
