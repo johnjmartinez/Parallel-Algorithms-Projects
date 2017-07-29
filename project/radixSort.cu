@@ -98,7 +98,7 @@ int main() {
     
     if(DATASIZE <=600) {
 	//printf("Input array size : %d:\n",DATASIZE);
-	for( int i = 0; i < DATASIZE; i++ ) {
+	for( int i = 0; i < DATASIZE; i++ ) 
 	    printf("%d ", h_input[i] );
     }
     
@@ -120,11 +120,9 @@ int main() {
     cudaMemcpy(d_input,h_input,MemDataSize,cudaMemcpyHostToDevice);
     //cudaMemcpy(d_output,h_input,arr_size,cudaMemcpyHostToDevice);
     
-    int nthreads = 512;
-    
-    int numBlocks = (DATASIZE + nthreads - 1) / nthreads;
+    //int nthreads = 512;
+    //int numBlocks = (DATASIZE + nthreads - 1) / nthreads;
     //int dimBlocksize( BLOCK_SIZE );
-    
     int dimGridsize( ceil((DATASIZE-1)/(float)BLOCK_SIZE) + 1 );
     
     cudaEventRecord(start);
@@ -138,7 +136,7 @@ int main() {
     cudaEventElapsedTime(&et, start, stop);
     printf("Time is: %f\n",et);
 
-    cudaMemcpy(h_output,d_input,MemDataSize,cudaMemcpyDeviceToHost); ///??? THIS SHOULD BE INCLUDED IN TOTAL TIME
+    cudaMemcpy(h_output,d_input,MemDataSize,cudaMemcpyDeviceToHost); 
     
     printf("Sorted array using GPU(Parallel) sort: \n ");
 

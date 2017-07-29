@@ -8,9 +8,8 @@ _cu_=$1
 time nvcc $_cu_ \
     -I cuda_common/inc/ \
     -I cub/ \
-    -l cuda \
     -std=c++11 \
+    -l cuda \
     -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES \
+    -arch=compute_60 -code=sm_60 \
     -o ${_cu_%.cu}_
-
-# -arch=compute_30 -code=sm_30 \ # breaking cub

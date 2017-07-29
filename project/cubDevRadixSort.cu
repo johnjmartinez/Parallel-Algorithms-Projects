@@ -11,8 +11,6 @@
 
 #include <cub.cuh>
 #include <cuda_common.h>       // cub cuda-specific helper functions
-#include <wall_clock_timer.h>  // cub StartTimer() and GetTimer()
-#include <cpu_common.h>        // cub helper functions
 
 // Parameters
 const int defaultNumElements = 32<<20; // 32M
@@ -77,20 +75,8 @@ double key_sort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &start, c
 }
 
 int main (int argc, char **argv) {
-    bool full = false;
+
     int numElements = defaultNumElements;
-
-    while (*++argv) {
-      ParseBool (*argv, "full", "", &full) ||
-      ParseInt  (*argv, "",         &numElements) ||
-      (printf ("radix_sort: benchmark CUB Radix Sort with various parameters.\n"
-               "Usage: radix_sort [N]\n"
-               " - N is number [of millions] of elements to test\n"
-              ),
-       exit(1), 1);
-    }
-
-    if (numElements < 16384) numElements <<= 20;
 
     DisplayCudaDevice();
 

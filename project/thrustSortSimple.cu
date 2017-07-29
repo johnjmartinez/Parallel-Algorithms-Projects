@@ -60,13 +60,12 @@ int main(int argc, char** argv) {
     struct cudaDeviceProp props;
     
     cuda(GetDeviceProperties(&props,device));
-    printf("%s (%2d)\n",props.name,props.multiProcessorCount);
+    printf("%s (%d)\n",props.name,props.multiProcessorCount);
 
     cuda(SetDevice(device));
 
     const uint32_t count = (32<<20); // 32M
     measure(&props,count);  // SORT
-
     cuda(DeviceReset()); // RESET
 
     return 0;
