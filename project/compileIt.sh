@@ -11,6 +11,6 @@ time nvcc $_cu_ \
     -l cuda \
     -std=c++11 \
     -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES \
-    -o ${_cu_%.cu}
+    -o ${_cu_%.cu}_
 
 # -arch=compute_30 -code=sm_30 \ # breaking cub
