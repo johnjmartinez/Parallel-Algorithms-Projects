@@ -9,12 +9,10 @@
 #include <thrust/generate.h>
 #include <thrust/detail/type_traits.h>
 
-#include <helper_cuda.h>
 #include <cuda_common.h> 
 
 #include <algorithm>
 #include <time.h>
-#include <limits.h>
 
 template <typename T>
 bool testSort(int argc, char **argv) {

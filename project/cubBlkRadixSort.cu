@@ -7,10 +7,10 @@
 #include <cuda.h>
 
 #include <cub.cuh>
-#include <cuda_common.h>    
+#include <cuda_common.h>       
 
 // Parameters
-const int defaultDATASIZE = 8<<20; 
+const int defaultDATASIZE = 8<<20; // 32M
 double MIN_BENCH_TIME = 0.5;  // mimimum seconds to run each bechmark
 
 template <typename T>
@@ -90,7 +90,7 @@ int main (int argc, char **argv) {
                bytes, elemsize, 1e-6 * DATASIZE / totalTime, totalTime*1000);
     };
 
-    printf("Sorting %dM elements:\n", DATASIZE>>20);
+    printf("Sorting %d elements:\n", DATASIZE);
     for(int i=1; i<=4; i++)  
         print (i, 4, devRadixSort<int>(i, DATASIZE, d_array, start, stop));  
     printf("\n");

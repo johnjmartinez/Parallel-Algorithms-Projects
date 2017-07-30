@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include <cuda.h>
-#include <helper_cuda.h>
 #include <cuda_common.h>     
 
 #define SHARED_SIZE_LIMIT 1024U
