@@ -11,5 +11,5 @@ time nvcc $_cu_ \
     -std=c++11 \
     -l cuda \
     -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES \
-    -arch=compute_60 -code=sm_60 \
+    -arch=compute_30 -code=sm_30 \
     -o ${_cu_%.cu}_

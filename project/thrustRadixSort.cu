@@ -33,7 +33,7 @@ bool testSort(int argc, char **argv) {
         }
     }
 
-    unsigned int numIterations = (numElements >= 16777216) ? 20 : 100;
+    unsigned int numIterations = 20;
 
     if (checkCmdLineFlag(argc, (const char **)argv, "iterations")) {
         cmdVal = getCmdLineArgumentInt(argc, (const char **)argv, "iterations");

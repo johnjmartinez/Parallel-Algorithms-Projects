@@ -17,7 +17,7 @@ const int defaultNumElements = 32<<20; // 32M
 double MIN_BENCH_TIME = 0.5;  // mimimum seconds to run each bechmark
 
 template <typename T>
-__global__ void fill_with_random (T *d_array, uint32_t size) {
+__global__ void randFill (T *d_array, uint32_t size) {
 
     const uint32_t idx = (blockIdx.x * blockDim.x + threadIdx.x);
     if (idx >= size)  return;
@@ -35,18 +35,18 @@ __global__ void fill_with_random (T *d_array, uint32_t size) {
     d_array[idx] = T(rnd1<<32) + rnd;
 }
 
-template <typename Key>
-double key_sort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &start, cudaEvent_t &stop) {
+template <typename elem>
+double devRadixSort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &start, cudaEvent_t &stop) {
     
-    int begin_bit = 0,  end_bit = SORT_BYTES*8; // Bit subrange [begin_bit, end_bit) of differentiating key bits
-    auto d_array = (Key*) d_array0;
+    int begin_bit = 0,  end_bit = SORT_BYTES*8; // Bit subrange [begin_bit, end_bit) of differentiating elem bits
+    auto d_array = (elem*) d_array0;
 
-    cub::DoubleBuffer<Key> d_keys (d_array, d_array + n); // Create DoubleBuffer to wrap pair of Dev pointers
+    cub::DoubleBuffer<elem> d_elems (d_array, d_array + n); // Create DoubleBuffer to wrap pair of Dev pointers
 
     // Determine temp Dev storage requirements
     void     *d_temp_storage = NULL;
     size_t   temp_storage_bytes = 0;
-    checkCudaErrors( cub::DeviceRadixSort::SortKeys (d_temp_storage, temp_storage_bytes, d_keys, n, begin_bit, end_bit));
+    checkCudaErrors( cub::DeviceRadixSort::SortKeys(d_temp_storage, temp_storage_bytes, d_elems, n, begin_bit, end_bit));
 
     checkCudaErrors( cudaMalloc (&d_temp_storage, temp_storage_bytes)); // Allocate temp storage
 
@@ -55,19 +55,20 @@ double key_sort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &start, c
 
     for ( ; totalTime < MIN_BENCH_TIME; numIterations++) {
        
-        fill_with_random<Key> <<< n/1024+1, 1024 >>> (d_array, n);  // Fill source buffer with random numbers
+        randFill<elem> <<< n/1024+1, 1024 >>> (d_array, n);  // Fill source buffer with random numbers
         checkCudaErrors( cudaDeviceSynchronize());
 
         checkCudaErrors( cudaEventRecord (start, nullptr));
 
         // Run sorting operation
-        checkCudaErrors( cub::DeviceRadixSort::SortKeys (d_temp_storage, temp_storage_bytes, d_keys, n, begin_bit, end_bit));
+        checkCudaErrors( cub::DeviceRadixSort::SortKeys(d_temp_storage, temp_storage_bytes, d_elems, n, begin_bit, end_bit) );
         
         checkCudaErrors( cudaEventRecord (stop, nullptr)); // Record time
         checkCudaErrors( cudaDeviceSynchronize());
-        float start_stop;
-        checkCudaErrors( cudaEventElapsedTime (&start_stop, start, stop));
-        totalTime += start_stop/1000; // converts milliseconds to seconds
+        
+        float time;
+        checkCudaErrors( cudaEventElapsedTime (&time, start, stop));
+        totalTime += time/1000; // converts milliseconds to seconds
     }
 
     checkCudaErrors( cudaFree (d_temp_storage)); // Release temp storage
@@ -87,15 +88,13 @@ int main (int argc, char **argv) {
     checkCudaErrors( cudaEventCreate(&start));
     checkCudaErrors( cudaEventCreate(&stop));
 
-    auto print = [&] (int bytes, int keysize, int valsize, double totalTime) {
-        char valsize_str[100];
-        sprintf(valsize_str, (valsize? "+%d": "  "), valsize);
-        printf("%d/%d%s: Throughput =%9.3lf MElements/s, Time = %.3lf ms\n",
-               bytes, keysize, valsize_str, 1e-6 * numElements / totalTime, totalTime*1000);
+    auto print = [&] (int bytes, int elemsize, double totalTime) {
+        printf("%d/%d: Throughput =%9.3lf MElements/s, Time = %.3lf ms\n",
+               bytes, elemsize, 1e-6 * numElements / totalTime, totalTime*1000);
     };
 
     printf("Sorting %dM elements:\n", numElements>>20);
-    {for(int i=1;i<=4;i++)  print (i, 4, 0, key_sort <uint32_t> (i, numElements, d_array, start, stop));  printf("\n");}
-    {for(int i=1;i<=8;i++)  print (i, 8, 0, key_sort <uint64_t> (i, numElements, d_array, start, stop));  printf("\n");}
+    {for(int i=1;i<=4;i++)  print (i, 4, devRadixSort<uint32_t>(i, numElements, d_array, start, stop));  printf("\n");}
+  //{for(int i=1;i<=8;i++)  print (i, 8, devRadixSort<uint64_t>(i, numElements, d_array, start, stop));  printf("\n");}
     return 0;
 }

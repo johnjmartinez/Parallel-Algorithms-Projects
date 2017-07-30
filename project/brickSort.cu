@@ -4,8 +4,8 @@
 #include <time.h>
 #include <cuda.h>
 
-#define DATASIZE   (32<<20)
-#define BLOCK_SIZE 512
+#define DATASIZE  1000000
+#define BLOCK_SIZE 128
 
 void printArray(int a[],int n) {
     FILE *fptr;
@@ -29,25 +29,25 @@ __global__ void oddevensort ( int * input, unsigned int size, int i )  {
 
     if(myId > size) return;
 
-        if( i == 0 ) {
-            p=myId*2;   // For even threads  
-            // if(( myId % 2 == 0 && input[myId] > input[myId+1]))
+    if( i == 0 ) {
+        p=myId*2;   // For even threads  
+        // if(( myId % 2 == 0 && input[myId] > input[myId+1]))
+        if(input[p]>input[p+1]) {
+            temp = input[p+1];
+            input[p+1] = input[p];
+            input[p] = temp;
+        }
+    }
+    else {
+        p=myId*2+1; // for odd threads   
+        // if(( myId % 2 != 0 && input[myId] > input[myId+1]))
+        if(p<size-1){
             if(input[p]>input[p+1]) {
                 temp = input[p+1];
                 input[p+1] = input[p];
                 input[p] = temp;
             }
         }
-        else {
-            p=myId*2+1; // for odd threads   
-            // if(( myId % 2 != 0 && input[myId] > input[myId+1]))
-            if(p<size-1){
-                if(input[p]>input[p+1]) {
-                    temp = input[p+1];
-                    input[p+1] = input[p];
-                    input[p] = temp;
-                }
-            }
     }
     __syncthreads();
 }
