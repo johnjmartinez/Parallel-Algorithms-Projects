@@ -13,7 +13,7 @@
 #include <cuda_common.h>       // cub cuda-specific helper functions
 
 // Parameters
-const int defaultNumElements = 32<<20; // 32M
+const int defaultDATASIZE = 8<<20; // 32M
 double MIN_BENCH_TIME = 0.5;  // mimimum seconds to run each bechmark
 
 template <typename T>
@@ -77,12 +77,12 @@ double devRadixSort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &star
 
 int main (int argc, char **argv) {
 
-    int numElements = defaultNumElements;
+    int DATASIZE = defaultDATASIZE;
 
     DisplayCudaDevice();
 
     void* d_array;
-    checkCudaErrors( cudaMalloc(&d_array, 4*numElements*sizeof(uint64_t)));
+    checkCudaErrors( cudaMalloc(&d_array, 4*DATASIZE*sizeof(uint64_t)));
 
     cudaEvent_t start, stop;
     checkCudaErrors( cudaEventCreate(&start));
@@ -90,11 +90,11 @@ int main (int argc, char **argv) {
 
     auto print = [&] (int bytes, int elemsize, double totalTime) {
         printf("%d/%d: Throughput =%9.3lf MElements/s, Time = %.3lf ms\n",
-               bytes, elemsize, 1e-6 * numElements / totalTime, totalTime*1000);
+               bytes, elemsize, 1e-6 * DATASIZE / totalTime, totalTime*1000);
     };
 
-    printf("Sorting %dM elements:\n", numElements>>20);
-    {for(int i=1;i<=4;i++)  print (i, 4, devRadixSort<uint32_t>(i, numElements, d_array, start, stop));  printf("\n");}
-  //{for(int i=1;i<=8;i++)  print (i, 8, devRadixSort<uint64_t>(i, numElements, d_array, start, stop));  printf("\n");}
+    printf("Sorting %dM elements:\n", DATASIZE>>20);
+    {for(int i=1;i<=4;i++)  print (i, 4, devRadixSort<int>(i, DATASIZE, d_array, start, stop));  printf("\n");}
+  //{for(int i=1;i<=8;i++)  print (i, 8, devRadixSort<uint64_t>(i, DATASIZE, d_array, start, stop));  printf("\n");}
     return 0;
 }

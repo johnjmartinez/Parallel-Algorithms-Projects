@@ -97,12 +97,16 @@ int main()  {
 
     DisplayCudaDevice();
     
-    float et=0;
+    float et = 0;
+    float tmp_time = 0;
+    
     cudaEvent_t start, stop;
     cudaEventCreate(&start); 
     cudaEventCreate(&stop);
     
-    int DATASIZE = 32<<20; 
+    unsigned int DATASIZE = 8<<20; 
+    unsigned int numIterations = 20;
+    
     int *h_input, *h_output; // Host []s
     int *d_input, *d_output; // Dev []s
     
@@ -110,7 +114,6 @@ int main()  {
     
     h_input = (int*)malloc(arr_size);   // allocating memory for Hosts[]s
     h_output = (int*)malloc(arr_size);
-
     checkCudaErrors( cudaMalloc((void**)&d_input, arr_size) ); // allocating memory for Dev[]s
     checkCudaErrors( cudaMalloc((void**)&d_output, arr_size) );
 
@@ -126,26 +129,32 @@ int main()  {
     int nthreads = SHARED_SIZE_LIMIT / 2;
     
     checkCudaErrors( cudaDeviceSynchronize() );
-    cudaEventRecord(start);     // start time
-    checkCudaErrors( cudaMemcpy( d_input, h_input, arr_size, cudaMemcpyHostToDevice) ); // copy from Host to Dev
 
-    oddEvenSortShared<<< nblocks, nthreads >>>( d_input, d_output, SHARED_SIZE_LIMIT );
+    for (unsigned int i = 0; i < numIterations; i++) {
 
-    for (int size = 2 * SHARED_SIZE_LIMIT; size <= DATASIZE; size <<= 1) {
+        checkCudaErrors( cudaEventRecord(start, nullptr) ); //start tmp_time
+        checkCudaErrors( cudaMemcpy( d_input, h_input, arr_size, cudaMemcpyHostToDevice) ); // copy from Host to Dev
+
+        oddEvenSortShared<<< nblocks, nthreads >>>( d_input, d_output, SHARED_SIZE_LIMIT ); // sort on shared
+
+        for (int size = 2 * SHARED_SIZE_LIMIT; size <= DATASIZE; size <<= 1) {
             for (int stride = size / 2; stride > 0; stride >>= 1) {
-                oddEvenMergeGlobal<<< DATASIZE / 512, 256 >>>( d_output, d_output, size, stride );
+                oddEvenMergeGlobal<<< DATASIZE / 512, 256 >>>( d_output, d_output, size, stride ); // merge on global
             }
+        }
+        
+        checkCudaErrors( cudaEventRecord(stop, nullptr) ); // end tmp_time
+        checkCudaErrors( cudaEventSynchronize(stop) );
+
+        tmp_time = 0;
+        checkCudaErrors( cudaEventElapsedTime(&tmp_time, start, stop) );
+        et += tmp_time;
     }
     
+    tmp_time = et/1000;
+    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n", 1e-6 * DATASIZE / tmp_time, tmp_time*1000);
+
     checkCudaErrors( cudaDeviceSynchronize() );
-
-    cudaEventRecord(stop);     // end time
-    cudaEventSynchronize(stop);
-    cudaEventElapsedTime(&et, start, stop);
-    
-    float time = et/1000;
-    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n", 1e-6 * DATASIZE / time, time*1000);
-
     checkCudaErrors( cudaMemcpy( h_output, d_output, arr_size, cudaMemcpyDeviceToHost) ); // copy from Dev to Host
     //printArray(h_output, DATASIZE, "output");
 
