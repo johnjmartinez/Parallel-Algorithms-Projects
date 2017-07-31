@@ -7,6 +7,6 @@
  * brickSort.cu          - basic brick gpu sort implementation
  
  * thrustSortSimple.cu   - radix gpu sort using thrust library sample 1
- * thrustRadixSort.cu    - radix gpu sort using thrust library sample 2
+ * thrustMergeSort.cu    - merge gpu sort using thrust library sample 2
  * cubDevRadixSort.cu    - device radix sort using cub library
- * cubBlkRadixSort.cu    - block radix sort using cub library
+ * cubBlkRadixSort.cu    - block radix + dev merge sort using cub library

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-module load cuda
-module load cxx11
+#module load cuda
+#module load cxx11
 
 set -x
 _cu_=$1
-time nvcc $_cu_ \
+time nvcc $_cu_ -O3 \
     -I cuda_common/inc/ \
     -I cub/ \
     -std=c++11 \

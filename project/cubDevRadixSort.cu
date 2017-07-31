@@ -10,8 +10,8 @@
 #include <cuda_common.h>    
 
 // Parameters
-const int defaultDATASIZE = 8<<20; 
-double MIN_BENCH_TIME = 0.5;  // mimimum seconds to run each bechmark
+//const int defaultDATASIZE = 8<<20; 
+double MIN_BENCH_TIME = 1.0;  // mimimum seconds to run each bechmark
 
 template <typename T>
 __global__ void randFill (T *d_array, uint32_t size) {
@@ -74,12 +74,12 @@ double devRadixSort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &star
 
 int main (int argc, char **argv) {
 
-    int DATASIZE = defaultDATASIZE;
+    const int DATASIZE = atoi(argv[1]); // defaultDATASIZE;
 
     DisplayCudaDevice();
 
     void* d_array;
-    checkCudaErrors( cudaMalloc(&d_array, 4*DATASIZE*sizeof(uint64_t)));
+    checkCudaErrors( cudaMalloc(&d_array, 4*DATASIZE*sizeof(int)));
 
     cudaEvent_t start, stop;
     checkCudaErrors( cudaEventCreate(&start));
@@ -90,7 +90,7 @@ int main (int argc, char **argv) {
                bytes, elemsize, 1e-6 * DATASIZE / totalTime, totalTime*1000);
     };
 
-    printf("Sorting %dM elements:\n", DATASIZE>>20);
+    printf("Sorting %d elements:\n", DATASIZE);
     for(int i=1; i<=4; i++)  
         print (i, 4, devRadixSort<int>(i, DATASIZE, d_array, start, stop));  
     printf("\n");

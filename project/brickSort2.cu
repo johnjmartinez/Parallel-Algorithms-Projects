@@ -5,7 +5,7 @@
 #include <cuda.h>
 #include <cuda_common.h>     
 
-#define SHARED_SIZE_LIMIT 1024U
+#define SHARED_SIZE_LIMIT 2048U
 
 //Map to single instructions on G8x / G9x / G100
 #define UMUL(a, b) __umul24((a), (b))
@@ -92,7 +92,7 @@ void printArray(int *a, int len, char *fileName) {
 }
 
 
-int main()  {
+int main(int argc, char** argv)  {
 
     DisplayCudaDevice();
     
@@ -103,8 +103,8 @@ int main()  {
     cudaEventCreate(&start); 
     cudaEventCreate(&stop);
     
-    unsigned int DATASIZE = 8<<20; 
-    unsigned int numIterations = 20;
+    const int DATASIZE = atoi(argv[1]); 
+    const int numIterations = 20;
     
     int *h_input, *h_output; // Host []s
     int *d_input, *d_output; // Dev []s
