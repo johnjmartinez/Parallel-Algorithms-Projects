@@ -17,10 +17,11 @@ __global__ void randFill (T *d_array, uint32_t size) {
 
     const uint32_t idx = (blockIdx.x * blockDim.x + threadIdx.x);
     if (idx >= size)  return;
-
+    
+    // https://en.wikipedia.org/wiki/Linear_congruential_generator
     uint32_t rnd = idx*1234567891u;
 
-    rnd = 29943829*rnd + 1013904223;    // https://en.wikipedia.org/wiki/Linear_congruential_generator
+    rnd = 29943829*rnd + 1013904223;    
     rnd = 29943829*rnd + 1013904223;
 
     uint64_t rnd1 = rnd;
@@ -57,9 +58,9 @@ double devRadixSort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &star
  
         // Run sorting operation
         checkCudaErrors(cub::DeviceRadixSort::SortKeys(d_temp_storage, temp_storage_bytes, d_elems, n, begin_bit, end_bit));
+        checkCudaErrors(cudaDeviceSynchronize());
         
         checkCudaErrors(cudaEventRecord (stop)); // Record time
-        checkCudaErrors(cudaDeviceSynchronize());
         
         float time;
         checkCudaErrors(cudaEventElapsedTime (&time, start, stop));

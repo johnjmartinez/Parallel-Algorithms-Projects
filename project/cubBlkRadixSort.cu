@@ -38,26 +38,6 @@ __global__ void cubBlkSort(T *d_in, T *d_out) {
     localBlkStore(tmpStorage.store).Store(d_out + blkOffset, threadData);
 }
 
-/* not working ....
-template <typename T>
-void cubDevSort (int SIZE, T *d_in, T *d_out) {
-    
-    int beginBit = 0, endBit = 8; // Bit subrange [beginBit, endBit) of differentiating elem bits
-
-    // Determine temp Dev storage requirements
-    void *dTmp = NULL;
-    size_t dTmpSize = SIZE;
-     // no work done and required allocation size is returned in dTmpSize.
-    checkCudaErrors(DeviceRadixSort::SortKeys(dTmp, dTmpSize, d_in, d_out, SIZE)); // , beginBit, endBit));
-    checkCudaErrors(cudaMalloc (&dTmp, dTmpSize)); // Allocate temp storage
-    checkCudaErrors(cudaDeviceSynchronize());
-
-    // Run sorting operation
-    checkCudaErrors(DeviceRadixSort::SortKeys(dTmp, dTmpSize, d_in, d_out, SIZE)); // , beginBit, endBit) );
-    checkCudaErrors(cudaDeviceSynchronize());
-    checkCudaErrors(cudaFree(dTmp)); // Release temp storage
-}*/
-
 template <typename T>
 void cubDevSort (int COUNT, T *d_in, T *d_out) {
     
