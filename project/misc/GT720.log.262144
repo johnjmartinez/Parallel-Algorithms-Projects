@@ -1,0 +1,54 @@
++ for x in '*_'
++ ./brickSort2_ 262144
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 262144 elements:
+Sorting succeed.
+Throughput =   14.514 MElements/s, Time = 18.062 ms
+
++ for x in '*_'
++ ./brickSort3_ 262144
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 262144 elements
+Sorting succeed.
+Throughput =   13.438 MElements/s, Time = 19.508 ms
+
++ for x in '*_'
++ ./cubBlkRadixSort_ 262144
+Input array size : 262144
+Sorting succeed.
+Throughput =   65.448 MElements/s, Time = 4.005 ms
+
++ for x in '*_'
++ ./cubDevRadixSort_ 262144
+Input array size : 262144
+Sorting succeed.
+Throughput =   78.883 MElements/s, Time = 3.323 ms
+
++ for x in '*_'
++ ./cubDevRadixSort2_ 262144
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 262144 elements:
+1/4: Throughput =  391.751 MElements/s, Time = 0.669 ms
+2/4: Throughput =  210.975 MElements/s, Time = 1.243 ms
+3/4: Throughput =  157.246 MElements/s, Time = 1.667 ms
+4/4: Throughput =  119.123 MElements/s, Time = 2.201 ms
+
++ for x in '*_'
++ ./quickSort2_ 262144
+262144 Elements, Time : 492.861 ms
+Sorting Failed
+
++ for x in '*_'
++ ./thrustMergeSort_ 262144
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 262144 32-bit int elems
+Throughput =   78.968 MElements/s, Time = 3.320 ms
+Sort passed
+
++ for x in '*_'
++ ./thrustSortSimple_ 262144
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 262144 elements:
+Throughput =   75.959 MElements/s, Time = 3.451 ms
+
++ set +x

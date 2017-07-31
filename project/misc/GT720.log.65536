@@ -1,0 +1,54 @@
++ for x in '*_'
++ ./brickSort2_ 65536
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 65536 elements:
+Sorting succeed.
+Throughput =   36.021 MElements/s, Time = 1.819 ms
+
++ for x in '*_'
++ ./brickSort3_ 65536
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 65536 elements
+Sorting succeed.
+Throughput =   33.699 MElements/s, Time = 1.945 ms
+
++ for x in '*_'
++ ./cubBlkRadixSort_ 65536
+Input array size : 65536
+Sorting succeed.
+Throughput =   60.271 MElements/s, Time = 1.087 ms
+
++ for x in '*_'
++ ./cubDevRadixSort_ 65536
+Input array size : 65536
+Sorting succeed.
+Throughput =   59.460 MElements/s, Time = 1.102 ms
+
++ for x in '*_'
++ ./cubDevRadixSort2_ 65536
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 65536 elements:
+1/4: Throughput =  421.075 MElements/s, Time = 0.156 ms
+2/4: Throughput =  236.183 MElements/s, Time = 0.277 ms
+3/4: Throughput =  140.473 MElements/s, Time = 0.467 ms
+4/4: Throughput =  111.015 MElements/s, Time = 0.590 ms
+
++ for x in '*_'
++ ./quickSort2_ 65536
+65536 Elements, Time : 102.064 ms
+Sorting Successful
+
++ for x in '*_'
++ ./thrustMergeSort_ 65536
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 65536 32-bit int elems
+Throughput =   55.412 MElements/s, Time = 1.183 ms
+Sort passed
+
++ for x in '*_'
++ ./thrustSortSimple_ 65536
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 65536 elements:
+Throughput =   50.564 MElements/s, Time = 1.296 ms
+
++ set +x

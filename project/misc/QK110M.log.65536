@@ -1,0 +1,48 @@
++ for x in '*_'
++ ./brickSort2_ 65536
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 65536 elements:
+Sorting succeed.
+Throughput =   35.574 MElements/s, Time = 1.842 ms
+
++ for x in '*_'
++ ./brickSort3_ 65536
+CUDA error at brickSort3.cu:138 code=77(cudaErrorIllegalAddress) "cudaEventSynchronize(stop)" 
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 65536 elements:
+
++ for x in '*_'
++ ./cubBlkRadixSort_ 65536
+Input array size : 65536
+Sorting succeed.
+Throughput =   44.150 MElements/s, Time = 1.484 ms
+
++ for x in '*_'
++ ./cubDevRadixSort_ 65536
+Input array size : 65536
+Sorting succeed.
+Throughput =   54.378 MElements/s, Time = 1.205 ms
+
++ for x in '*_'
++ ./cubDevRadixSort2_ 65536
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 65536 elements:
+1/4: Throughput =  332.911 MElements/s, Time = 0.197 ms
+2/4: Throughput =  167.009 MElements/s, Time = 0.392 ms
+3/4: Throughput =  116.222 MElements/s, Time = 0.564 ms
+4/4: Throughput =   85.998 MElements/s, Time = 0.762 ms
+
++ for x in '*_'
++ ./thrustMergeSort_ 65536
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 65536 32-bit int elems
+Throughput =   55.669 MElements/s, Time = 1.177 ms
+Sort passed
+
++ for x in '*_'
++ ./thrustSortSimple_ 65536
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 65536 elements:
+Throughput =   48.699 MElements/s, Time = 1.346 ms
+
++ set +x

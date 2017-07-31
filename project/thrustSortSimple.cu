@@ -6,6 +6,7 @@
 #include <thrust/sort.h>
 #include <thrust/copy.h>
 #include <algorithm>
+#include <cuda_common.h>     
 
 static void cuda_assert(const cudaError_t code, const char* const file, const int line, const bool abort) {
     if (code != cudaSuccess) {
@@ -18,27 +19,26 @@ static void cuda_assert(const cudaError_t code, const char* const file, const in
     }
 }
 
-#define cuda(...) { cuda_assert((cuda##__VA_ARGS__), __FILE__, __LINE__, true); }
+#define cuda(...) { cuda_assert((cuda##__VA_ARGS__), __FILE__, __LINE__, true ); }
 
-static void sort(thrust::host_vector<uint64_t>& h_vec, cudaEvent_t start, cudaEvent_t end, float* const elapsed) {
+static void sort(thrust::host_vector<int>& h_vec, cudaEvent_t start, cudaEvent_t end, float* const elapsed) {
     
-    thrust::device_vector<uint64_t> d_vec = h_vec; // copy data to device
-    cuda(EventRecord(start,0));
+    cuda(EventRecord (start));
 
+    thrust::device_vector<int> d_vec = h_vec; // copy data to device
     thrust::sort(d_vec.begin(), d_vec.end()); // sort data on device 
 
-    cuda(EventRecord(end,0));
+    cuda(EventRecord(end));
     cuda(EventSynchronize(end));
 
     float sort_elapsed;
-    cuda(EventElapsedTime(&sort_elapsed,start,end));
-
+    cuda(EventElapsedTime(&sort_elapsed, start, end));
     *elapsed += sort_elapsed;
 }
 
-static void measure(const struct cudaDeviceProp* const props, const uint32_t count) {
+static void measure(const struct cudaDeviceProp* const props, const int DATASIZE) {
     
-    thrust::host_vector<uint64_t> h_vec(count);
+    thrust::host_vector<int> h_vec(DATASIZE);
     std::generate(h_vec.begin(), h_vec.end(), rand);
 
     cudaEvent_t start, end;
@@ -46,27 +46,25 @@ static void measure(const struct cudaDeviceProp* const props, const uint32_t cou
     cuda(EventCreate(&end));
 
     float elapsed = 0.0f;
-    for (int a=0; a<20; a++) sort(h_vec,start,end,&elapsed);
+    for (int a=0; a<32; a++) sort(h_vec, start, end, &elapsed);
 
     cuda(EventDestroy(start));
     cuda(EventDestroy(end));
 
-    fprintf(stdout," elements:%u, time:%.2f\n", count, elapsed/20.0);
+    float time = elapsed / 32.0 / 1000; // in secs
+    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n\n", 
+        1e-6 * DATASIZE / time, time * 1000);
 }
 
 int main(int argc, char** argv) {
 
-    const int32_t device = 0 ;
+    DisplayCudaDevice();
+   
     struct cudaDeviceProp props;
+    const int DATASIZE = atoi(argv[1]);
+    printf("Sorting %d elements:\n", DATASIZE);
     
-    cuda(GetDeviceProperties(&props,device));
-    printf("%s (%2d)\n",props.name,props.multiProcessorCount);
-
-    cuda(SetDevice(device));
-
-    const uint32_t count = (32<<20); // 32M
-    measure(&props,count);  // SORT
-
+    measure( &props, DATASIZE );  // SORT
     cuda(DeviceReset()); // RESET
 
     return 0;
