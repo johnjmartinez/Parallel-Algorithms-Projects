@@ -5,7 +5,7 @@
 
 set -x
 _cu_=$1
-time nvcc $_cu_ -O3 \
+time nvcc $_cu_ \
     -I cuda_common/inc/ \
     -I cub/ \
     -std=c++11 \

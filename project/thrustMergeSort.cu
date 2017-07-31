@@ -18,7 +18,7 @@ template <typename T>
 bool testSort(int argc, char **argv) {
 
     int keybits = 32; // INT32
-    unsigned int DATASIZE = (8<<20);
+    unsigned int DATASIZE = atoi(argv[1]);
     unsigned int numIterations = 20;
     
     printf("Sorting %d %d-bit int elems\n", DATASIZE, keybits);
@@ -63,8 +63,8 @@ bool testSort(int argc, char **argv) {
         d_elems = h_elems; // reset data before sort (copy from host to device)
         thrust::sort(d_elems.begin(), d_elems.end());
 
-        checkCudaErrors( cudaEventRecord(stop_event, nullptr) );
-        checkCudaErrors( cudaEventSynchronize(stop_event) );
+        checkCudaErrors(cudaEventRecord(stop_event, nullptr));
+        checkCudaErrors(cudaEventSynchronize(stop_event));
 
         time = 0;
         checkCudaErrors(cudaEventElapsedTime(&time, start_event, stop_event));
@@ -94,6 +94,6 @@ int main(int argc, char **argv) {
 
     bool sortResult = testSort<int>(argc, argv);
     
-    checkCudaErrors( cudaDeviceReset() );
-    printf(sortResult ? "Test passed\n" : "Test failed!\n");
+    checkCudaErrors(cudaDeviceReset());
+    printf(sortResult ? "Sort passed\n\n" : "Sort failed!\n\n");
 }

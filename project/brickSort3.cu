@@ -3,14 +3,16 @@
 #include <stdlib.h>
 #include <time.h>
 #include <cuda.h>
-#include <algorithm>
 #include <cuda_common.h>     
+#include <algorithm>
+#include <cub/cub.cuh>
 
-#define SHARED_SIZE_LIMIT 2048U
+#define SHARED_SIZE_LIMIT 1024U
 
 //Map to single instructions on G8x / G9x / G100
 #define UMUL(a, b) __umul24((a), (b))
 #define UMAD(a, b, c) ( UMUL((a), (b)) + (c) )
+using namespace cub;
 
 __device__  void compare_and_swap( int &_a_, int &_b_) {
     int tmp;
@@ -21,41 +23,33 @@ __device__  void compare_and_swap( int &_a_, int &_b_) {
     }
 }
 
-__global__ void oddEvenSortShared( int *d_input, int *d_output, int d_size ) {
-    
-    __shared__ int s_tmp[SHARED_SIZE_LIMIT];
+template <typename T, int BLOCK_THREADS>
+__global__ void cubBlkSort(T *d_in, T *d_out) {
 
-    // offset to beginning 
-    d_input  += blockIdx.x * SHARED_SIZE_LIMIT + threadIdx.x;
-    d_output += blockIdx.x * SHARED_SIZE_LIMIT + threadIdx.x;
+    const int ELEMS_PER_THREAD = SHARED_SIZE_LIMIT / BLOCK_THREADS;
+    enum { TILE_SIZE = BLOCK_THREADS * ELEMS_PER_THREAD };
     
-    s_tmp[threadIdx.x] = d_input[0];     // load data
-    s_tmp[threadIdx.x + (SHARED_SIZE_LIMIT / 2)] = d_input[(SHARED_SIZE_LIMIT / 2)];
+    typedef BlockLoad<T, BLOCK_THREADS, ELEMS_PER_THREAD, BLOCK_LOAD_WARP_TRANSPOSE> localBlkLoad;
+    typedef BlockStore<T, BLOCK_THREADS, ELEMS_PER_THREAD, BLOCK_STORE_WARP_TRANSPOSE> localBlkStore;    
+    typedef BlockRadixSort<T, BLOCK_THREADS, ELEMS_PER_THREAD> localBlkSort;
+    
+    __shared__ union {
+        typename localBlkLoad::TempStorage load;
+        typename localBlkStore::TempStorage store;
+        typename localBlkSort::TempStorage sort;
+    } tmpStorage;    
 
-    for (int size = 2; size <= d_size; size <<= 1) {
+    T threadData[ELEMS_PER_THREAD];
+    const int blkOffset = blockIdx.x * TILE_SIZE;
     
-        int stride = size / 2;
-        int offset = threadIdx.x & (stride - 1);
-        
-        {
-            __syncthreads();
-            int pos = 2 * threadIdx.x - (threadIdx.x & (stride - 1));
-            compare_and_swap( s_tmp[pos], s_tmp[pos + stride] );
-            stride >>= 1;
-        }
+    localBlkLoad(tmpStorage.load).Load(d_in + blkOffset, threadData);
+     __syncthreads(); 
 
-        for (; stride > 0; stride >>= 1) {
-            __syncthreads();
-            int pos = 2 * threadIdx.x - (threadIdx.x & (stride - 1));
-            if (offset >= stride) compare_and_swap( s_tmp[pos - stride], s_tmp[pos] );
-        }
-    }
-    __syncthreads();
-    
-    d_output[0] = s_tmp[threadIdx.x]; // copy to output
-    d_output[(SHARED_SIZE_LIMIT / 2)] = s_tmp[threadIdx.x + (SHARED_SIZE_LIMIT / 2)];
+    localBlkSort(tmpStorage.sort).Sort(threadData);
+    __syncthreads(); 
+
+    localBlkStore(tmpStorage.store).Store(d_out + blkOffset, threadData);
 }
-
 
 __global__ void oddEvenMergeGlobal( int *d_input, int *d_output, int size, int stride ) {
     
@@ -114,8 +108,8 @@ int main(int argc, char** argv)  {
     
     h_input = (int*)malloc(arr_size);   // allocating memory for Hosts[]s
     h_output = (int*)malloc(arr_size);
-    checkCudaErrors(cudaMalloc((void**)&d_input, arr_size)); // allocating memory for Dev[]s
-    checkCudaErrors(cudaMalloc((void**)&d_output, arr_size));
+    checkCudaErrors(cudaMalloc((void**)&d_input, arr_size*2)); // allocating memory for Dev[]s + paddinng
+    checkCudaErrors(cudaMalloc((void**)&d_output, arr_size*2));
 
     srand(time(NULL));
     for( int i = 0; i < DATASIZE; i++ ) {
@@ -123,10 +117,8 @@ int main(int argc, char** argv)  {
         h_output[i] = 0;
     }
     printf("Sorting %d elements:\n", DATASIZE); //printArray(h_input, DATASIZE, "input");
-    
-    int numBlks = DATASIZE / SHARED_SIZE_LIMIT ;
-    int numThreads = SHARED_SIZE_LIMIT / 2;
-    
+      
+    int numBlks = DATASIZE / (SHARED_SIZE_LIMIT/32);
     checkCudaErrors(cudaDeviceSynchronize());
 
     for (unsigned int i = 0; i < numIterations; i++) {
@@ -134,7 +126,7 @@ int main(int argc, char** argv)  {
         checkCudaErrors(cudaEventRecord(start)); //start tmp_time
         checkCudaErrors(cudaMemcpy( d_input, h_input, arr_size, cudaMemcpyHostToDevice)); // copy from Host to Dev
 
-        oddEvenSortShared<<< numBlks, numThreads >>>( d_input, d_output, SHARED_SIZE_LIMIT ); // sort on shared
+        cubBlkSort<int, 32> <<< numBlks, 32 >>> (d_input, d_output); 
 
         for (int size = 2 * SHARED_SIZE_LIMIT; size <= DATASIZE; size <<= 1) {
             for (int stride = size / 2; stride > 0; stride >>= 1) {

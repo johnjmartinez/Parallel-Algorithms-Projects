@@ -3,7 +3,7 @@
 #include <time.h>
 #include <cuda.h>
 
-void printArray(int *a, int len, char *fileName) {
+void printArray(int *a, int len, const char *fileName) {
     FILE *fptr;
     fptr = fopen(fileName, "w");
     for (int i = 0; i < len; i++) fprintf(fptr, "%d\n", a[i]);
