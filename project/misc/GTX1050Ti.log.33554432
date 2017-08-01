@@ -1,55 +1,70 @@
-+ for x in '*_'
-+ ./brickSort2_ 33554432
-MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
+
+==== brickSort2_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 33554432 elements:
 Sorting succeed.
-Throughput =   46.139 MElements/s, Time = 727.239 ms
+Throughput =   43.303 MElements/s, Time = 774.879 ms
 
-+ for x in '*_'
-+ ./brickSort3_ 33554432
-MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
+==== brickSort3_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 33554432 elements
 Sorting succeed.
-Throughput =   45.711 MElements/s, Time = 734.049 ms
+Throughput =   44.156 MElements/s, Time = 759.913 ms
 
-+ for x in '*_'
-+ ./cubBlkRadixSort_ 33554432
-MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
-GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+==== cubDevRadixSort_
 Input array size : 33554432
-  64 Ts | 16 elems/T: Throughput = 1211.422 MElements/s, Time = 27.698 ms
-Sorting FAILED.
+Throughput =  622.109 MElements/s, Time = 53.937 ms
+Sorting succeed.
 
-+ for x in '*_'
-+ ./cubDevRadixSort_ 33554432
-CUDA error at cubDevRadixSort.cu:29 code=11(cudaErrorInvalidValue) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
-Input array size : 33554432
-
-+ for x in '*_'
-+ ./cubDevRadixSort2_ 33554432
-MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
+==== cubDevRadixSort2_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 33554432 elements:
-1/4: Throughput = 3479.306 MElements/s, Time = 9.644 ms
-2/4: Throughput = 2337.705 MElements/s, Time = 14.354 ms
-3/4: Throughput = 1753.940 MElements/s, Time = 19.131 ms
-4/4: Throughput = 1243.346 MElements/s, Time = 26.987 ms
+1/4: Throughput = 2801.544 MElements/s, Time = 11.977 ms
+2/4: Throughput = 1966.112 MElements/s, Time = 17.066 ms
+3/4: Throughput = 1505.117 MElements/s, Time = 22.294 ms
+4/4: Throughput = 1070.112 MElements/s, Time = 31.356 ms
 
-+ for x in '*_'
-+ ./thrustMergeSort_ 33554432
-MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
+
+==== quickSort2_
+Segmentation fault (core dumped)
+
+==== thrustMergeSort_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 33554432 32-bit int elems
-Throughput =  640.288 MElements/s, Time = 52.405 ms
+Throughput =  604.960 MElements/s, Time = 55.466 ms
 Sort passed
 
-+ for x in '*_'
-+ ./thrustSortSimple_ 33554432
-MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
+==== thrustSortSimple_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 33554432 elements:
-Throughput =  632.067 MElements/s, Time = 53.087 ms
+Throughput =  602.751 MElements/s, Time = 55.669 ms
 
-+ set +x
+==== cubBlkRadixSort_ 0
+Input array size : 33554432
+1024 Ts |  1 elems/T: Throughput =  220.802 MElements/s, Time = 151.966 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 33554432
+ 512 Ts |  2 elems/T: Throughput =  383.803 MElements/s, Time = 87.426 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 33554432
+ 256 Ts |  4 elems/T: Throughput =  475.287 MElements/s, Time = 70.598 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 33554432
+ 128 Ts |  8 elems/T: Throughput =  516.779 MElements/s, Time = 64.930 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 33554432
+  64 Ts | 16 elems/T: Throughput =  535.773 MElements/s, Time = 62.628 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 33554432
+  32 Ts | 32 elems/T: Throughput =  539.845 MElements/s, Time = 62.156 ms
+Sorting succeed.

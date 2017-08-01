@@ -16,11 +16,21 @@
  * cubDevRadixSort2.cu   - byte based device radix sort using cub library
  
  
- - Creating logs by running, i.e.  (shell script below)
+ - Creating logs by running : (shell script below)
     function run_sorts() {  
-        for x in *_; do echo -e "\n==== $x"; ./$x $val; done
+    
+        for x in `ls *_ | grep -v cubBlk` ; do 
+            echo -e "\n==== $x"; ./$x $val
+        done
+        
+        x=cubBlkRadixSort_
+        for n in `seq 0 5`; do 
+            echo -e "\n==== $x $n"; ./$x $val $n
+        done
     }
     
-    tag=<gpu> # i.e. GT720
-    val=$((1<<16)) # 64K = 2^16
-    run_sorts > misc/${tag}.log.${val}
+    tag=GTX1050Ti #<GPU>
+    for i in `seq 19 25`; do
+        val=$((1<<${i})) 
+        run_sorts &> misc/${tag}.log.${val}
+    done

@@ -3,41 +3,68 @@
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements:
 Sorting succeed.
-Throughput =   49.161 MElements/s, Time = 341.270 ms
+Throughput =   47.476 MElements/s, Time = 353.382 ms
 
 ==== brickSort3_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements
 Sorting succeed.
-Throughput =   50.023 MElements/s, Time = 335.387 ms
-
-==== cubBlkRadixSort_
-GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
-Input array size : 16777216
-  64 Ts | 16 elems/T: Throughput = 1157.721 MElements/s, Time = 14.492 ms
-Sorting FAILED.
+Throughput =   48.581 MElements/s, Time = 345.343 ms
 
 ==== cubDevRadixSort_
 Input array size : 16777216
+Throughput =  608.314 MElements/s, Time = 27.580 ms
+Sorting succeed.
 
 ==== cubDevRadixSort2_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements:
-1/4: Throughput = 2800.555 MElements/s, Time = 5.991 ms
-2/4: Throughput = 1962.579 MElements/s, Time = 8.549 ms
-3/4: Throughput = 1545.627 MElements/s, Time = 10.855 ms
-4/4: Throughput = 1097.262 MElements/s, Time = 15.290 ms
+1/4: Throughput = 2796.082 MElements/s, Time = 6.000 ms
+2/4: Throughput = 1950.243 MElements/s, Time = 8.603 ms
+3/4: Throughput = 1491.834 MElements/s, Time = 11.246 ms
+4/4: Throughput = 1054.881 MElements/s, Time = 15.904 ms
 
 
 ==== quickSort2_
+Segmentation fault (core dumped)
 
 ==== thrustMergeSort_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 32-bit int elems
-Throughput =  634.050 MElements/s, Time = 26.460 ms
+Throughput =  588.434 MElements/s, Time = 28.512 ms
 Sort passed
 
 ==== thrustSortSimple_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements:
-Throughput =  627.188 MElements/s, Time = 26.750 ms
+Throughput =  582.494 MElements/s, Time = 28.802 ms
+
+==== cubBlkRadixSort_ 0
+Input array size : 16777216
+1024 Ts |  1 elems/T: Throughput =  220.735 MElements/s, Time = 76.006 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 16777216
+ 512 Ts |  2 elems/T: Throughput =  381.003 MElements/s, Time = 44.034 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 16777216
+ 256 Ts |  4 elems/T: Throughput =  474.046 MElements/s, Time = 35.392 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 16777216
+ 128 Ts |  8 elems/T: Throughput =  507.315 MElements/s, Time = 33.071 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 16777216
+  64 Ts | 16 elems/T: Throughput =  531.815 MElements/s, Time = 31.547 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 16777216
+  32 Ts | 32 elems/T: Throughput =  536.650 MElements/s, Time = 31.263 ms
+Sorting succeed.
