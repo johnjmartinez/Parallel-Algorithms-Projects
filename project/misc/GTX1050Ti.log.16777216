@@ -1,0 +1,43 @@
+
+==== brickSort2_
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Sorting 16777216 elements:
+Sorting succeed.
+Throughput =   49.161 MElements/s, Time = 341.270 ms
+
+==== brickSort3_
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Sorting 16777216 elements
+Sorting succeed.
+Throughput =   50.023 MElements/s, Time = 335.387 ms
+
+==== cubBlkRadixSort_
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Input array size : 16777216
+  64 Ts | 16 elems/T: Throughput = 1157.721 MElements/s, Time = 14.492 ms
+Sorting FAILED.
+
+==== cubDevRadixSort_
+Input array size : 16777216
+
+==== cubDevRadixSort2_
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Sorting 16777216 elements:
+1/4: Throughput = 2800.555 MElements/s, Time = 5.991 ms
+2/4: Throughput = 1962.579 MElements/s, Time = 8.549 ms
+3/4: Throughput = 1545.627 MElements/s, Time = 10.855 ms
+4/4: Throughput = 1097.262 MElements/s, Time = 15.290 ms
+
+
+==== quickSort2_
+
+==== thrustMergeSort_
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Sorting 16777216 32-bit int elems
+Throughput =  634.050 MElements/s, Time = 26.460 ms
+Sort passed
+
+==== thrustSortSimple_
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Sorting 16777216 elements:
+Throughput =  627.188 MElements/s, Time = 26.750 ms

@@ -1,61 +1,60 @@
-+ for x in '*_'
-+ ./brickSort2_ 65536
+
+==== brickSort2_
 MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements:
 Sorting succeed.
-Throughput =  133.525 MElements/s, Time = 0.491 ms
+Throughput =  134.613 MElements/s, Time = 0.487 ms
 
-+ for x in '*_'
-+ ./brickSort3_ 65536
+
+==== brickSort3_
 MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements
 Sorting succeed.
-Throughput =  136.125 MElements/s, Time = 0.481 ms
+Throughput =  136.026 MElements/s, Time = 0.482 ms
 
-+ for x in '*_'
-+ ./cubBlkRadixSort_ 65536
+
+==== cubBlkRadixSort_
 MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Input array size : 65536
-  64 Ts | 16 elems/T: Throughput =  813.667 MElements/s, Time = 0.081 ms
+  64 Ts | 16 elems/T: Throughput =  810.768 MElements/s, Time = 0.081 ms
 Sorting FAILED.
 
-+ for x in '*_'
-+ ./cubDevRadixSort_ 65536
+
+==== cubDevRadixSort_
 Input array size : 65536
 Sorting succeed.
-Throughput =  114.158 MElements/s, Time = 0.574 ms
+Throughput =  114.631 MElements/s, Time = 0.572 ms
 
-+ for x in '*_'
-+ ./cubDevRadixSort2_ 65536
+
+==== cubDevRadixSort2_
 MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements:
-1/4: Throughput = 1483.220 MElements/s, Time = 0.044 ms
-2/4: Throughput = 1026.003 MElements/s, Time = 0.064 ms
-3/4: Throughput =  710.796 MElements/s, Time = 0.092 ms
-4/4: Throughput =  533.407 MElements/s, Time = 0.123 ms
+1/4: Throughput = 1525.770 MElements/s, Time = 0.043 ms
+2/4: Throughput = 1031.477 MElements/s, Time = 0.064 ms
+3/4: Throughput =  713.605 MElements/s, Time = 0.092 ms
+4/4: Throughput =  535.740 MElements/s, Time = 0.122 ms
 
-+ for x in '*_'
-+ ./quickSort2_ 65536
-65536 Elements, Time : 71.694 ms
+
+==== quickSort2_
+65536 Elements, Time : 75.916 ms
 Sorting Successful
 
-+ for x in '*_'
-+ ./thrustMergeSort_ 65536
+
+==== thrustMergeSort_
 MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 32-bit int elems
-Throughput =  122.885 MElements/s, Time = 0.533 ms
+Throughput =  122.539 MElements/s, Time = 0.535 ms
 Sort passed
 
-+ for x in '*_'
-+ ./thrustSortSimple_ 65536
+
+==== thrustSortSimple_
 MapSMtoCores for SM 6.1 is undefined.  Default to use 128 Cores/SM
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements:
-Throughput =   89.432 MElements/s, Time = 0.733 ms
+Throughput =   88.862 MElements/s, Time = 0.738 ms
 
-+ set +x

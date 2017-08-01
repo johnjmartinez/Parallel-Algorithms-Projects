@@ -21,6 +21,6 @@
         for x in *_; do echo -e "\n==== $x"; ./$x $val; done
     }
     
-    tag=<gpu> ... ie GT720
-    val=$((1<<16)) #64K
-    run_sorts &> misc/${tag}.log.${val}
+    tag=<gpu> # i.e. GT720
+    val=$((1<<16)) # 64K = 2^16
+    run_sorts > misc/${tag}.log.${val}
