@@ -1,0 +1,74 @@
+
+==== brickSort2_
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 32768 elements:
+Sorting succeed.
+Throughput =   38.398 MElements/s, Time = 0.853 ms
+
+==== brickSort3_
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 32768 elements
+Sorting succeed.
+Throughput =   33.042 MElements/s, Time = 0.992 ms
+
+==== cubDevRadixSort_
+Input array size : 32768
+Throughput =   33.618 MElements/s, Time = 0.975 ms
+Sorting succeed.
+
+==== cubDevRadixSort2_
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 32768 elements:
+1/4: Throughput =  246.447 MElements/s, Time = 0.133 ms
+2/4: Throughput =  129.966 MElements/s, Time = 0.252 ms
+3/4: Throughput =   95.796 MElements/s, Time = 0.342 ms
+4/4: Throughput =   70.621 MElements/s, Time = 0.464 ms
+
+==== quickSort2_
+32768 Elements, Time : 98.914 ms
+Sorting Successful
+
+==== quick_sort_opt_mytest_
+Time is: 0.000000
+Sorting Failed!!
+
+==== thrustMergeSort_
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 32768 32-bit int elems
+Throughput =   59.057 MElements/s, Time = 0.555 ms
+Sort passed
+
+==== thrustSortSimple_
+Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
+Sorting 32768 elements:
+Throughput =   44.469 MElements/s, Time = 0.737 ms
+
+==== cubBlkRadixSort_ 0
+Input array size : 32768
+1024 Ts |  1 elems/T: Throughput =   26.331 MElements/s, Time = 1.244 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 32768
+ 512 Ts |  2 elems/T: Throughput =   35.562 MElements/s, Time = 0.921 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 32768
+ 256 Ts |  4 elems/T: Throughput =   41.543 MElements/s, Time = 0.789 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 32768
+ 128 Ts |  8 elems/T: Throughput =   42.269 MElements/s, Time = 0.775 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 32768
+  64 Ts | 16 elems/T: Throughput =   42.081 MElements/s, Time = 0.779 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 32768
+  32 Ts | 32 elems/T: Throughput =   34.963 MElements/s, Time = 0.937 ms
+Sorting succeed.

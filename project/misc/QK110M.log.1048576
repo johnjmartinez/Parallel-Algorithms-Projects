@@ -1,48 +1,73 @@
-+ for x in '*_'
-+ ./brickSort2_ 1048576
+
+==== brickSort2_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements:
 Sorting succeed.
-Throughput =   24.549 MElements/s, Time = 42.714 ms
+Throughput =   23.946 MElements/s, Time = 43.788 ms
 
-+ for x in '*_'
-+ ./brickSort3_ 1048576
-CUDA error at brickSort3.cu:138 code=77(cudaErrorIllegalAddress) "cudaEventSynchronize(stop)" 
+==== brickSort3_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
-Sorting 1048576 elements:
+Sorting 1048576 elements
+Sorting succeed.
+Throughput =   22.796 MElements/s, Time = 45.999 ms
 
-+ for x in '*_'
-+ ./cubBlkRadixSort_ 1048576
+==== cubDevRadixSort_
 Input array size : 1048576
+Throughput =  145.194 MElements/s, Time = 7.222 ms
 Sorting succeed.
-Throughput =   72.717 MElements/s, Time = 14.420 ms
 
-+ for x in '*_'
-+ ./cubDevRadixSort_ 1048576
-Input array size : 1048576
-Sorting succeed.
-Throughput =  134.038 MElements/s, Time = 7.823 ms
-
-+ for x in '*_'
-+ ./cubDevRadixSort2_ 1048576
+==== cubDevRadixSort2_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements:
-1/4: Throughput =  697.725 MElements/s, Time = 1.503 ms
-2/4: Throughput =  347.176 MElements/s, Time = 3.020 ms
-3/4: Throughput =  233.262 MElements/s, Time = 4.495 ms
-4/4: Throughput =  170.916 MElements/s, Time = 6.135 ms
+1/4: Throughput =  614.117 MElements/s, Time = 1.707 ms
+2/4: Throughput =  324.979 MElements/s, Time = 3.227 ms
+3/4: Throughput =  223.130 MElements/s, Time = 4.699 ms
+4/4: Throughput =  165.402 MElements/s, Time = 6.340 ms
 
-+ for x in '*_'
-+ ./thrustMergeSort_ 1048576
+==== quickSort2_
+Segmentation fault (core dumped)
+
+==== quick_sort_opt_mytest_
+Time is: 0.000000
+Sorting Failed!!
+
+==== thrustMergeSort_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 32-bit int elems
-Throughput =  149.650 MElements/s, Time = 7.007 ms
+Throughput =  148.727 MElements/s, Time = 7.050 ms
 Sort passed
 
-+ for x in '*_'
-+ ./thrustSortSimple_ 1048576
+==== thrustSortSimple_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements:
-Throughput =  146.027 MElements/s, Time = 7.181 ms
+Throughput =  145.640 MElements/s, Time = 7.200 ms
 
-+ set +x
+==== cubBlkRadixSort_ 0
+Input array size : 1048576
+1024 Ts |  1 elems/T: Throughput =   39.620 MElements/s, Time = 26.466 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 1048576
+ 512 Ts |  2 elems/T: Throughput =   65.979 MElements/s, Time = 15.893 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 1048576
+ 256 Ts |  4 elems/T: Throughput =   91.295 MElements/s, Time = 11.486 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 1048576
+ 128 Ts |  8 elems/T: Throughput =  102.276 MElements/s, Time = 10.252 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 1048576
+  64 Ts | 16 elems/T: Throughput =  103.260 MElements/s, Time = 10.155 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 1048576
+  32 Ts | 32 elems/T: Throughput =   74.137 MElements/s, Time = 14.144 ms
+Sorting succeed.

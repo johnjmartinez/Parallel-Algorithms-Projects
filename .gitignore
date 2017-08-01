@@ -1,1 +1,7 @@
 *_
+*.settings
+*tmp
+*output
+*Qsort.txt
+*cuda_samples
+*list
