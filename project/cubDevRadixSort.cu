@@ -54,11 +54,10 @@ int main(int argc, char** argv) {
     int *d_1, *d_2; // Dev []
     
     unsigned int memAlloc = DATASIZE * sizeof(int);
-    
     h_ary = (int*)malloc(memAlloc); // allocatings_output memory for Hosts[]
     h_ref = (int*)malloc(memAlloc); // allocatings_output memory for Hosts[]
-    cudaMalloc((void**)&d_1, memAlloc); // allocating memory for Dev[] + paddinng
-    cudaMalloc((void**)&d_2, memAlloc); // allocating memory for Dev[] + paddinng
+    cudaMalloc((void**)&d_1, memAlloc+2); // allocating memory for Dev[] + paddinng
+    cudaMalloc((void**)&d_2, memAlloc+2); // allocating memory for Dev[] + paddinng
 
     srand(time(NULL));
     for( int i = 0; i < DATASIZE; i++ ) h_ary[i]  = rand() ; // generating Host[] values
@@ -84,13 +83,18 @@ int main(int argc, char** argv) {
     } 
     checkCudaErrors(cudaDeviceSynchronize());
     
-    cudaMemcpy(h_ref, d_2, memAlloc, cudaMemcpyDeviceToHost); // copy from Dev to Host
-    printf("Sorting %s\n", (std::is_sorted(h_ref, h_ref+DATASIZE) ? "succeed." : "FAILED."));
-    //printArray(h_ref, DATASIZE, "output");
-   
     tmp_time = et/1000/numIterations;    
     printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n", 
         1e-6 * DATASIZE / tmp_time, tmp_time  * 1000);
+    
+    cudaMemcpy(h_ref, d_2, memAlloc, cudaMemcpyDeviceToHost); // copy from Dev to Host
+    bool flag = std::is_sorted(h_ref, h_ref+DATASIZE);
+    printf("Sorting %s\n", (flag)?"succeed.":"FAILED.");
+    if (!flag){
+        char buffer [20];
+        sprintf (buffer, "%04d_%02d_output", BLOCK_THREADS, ELEMS_PER_THREAD);
+        printArray(h_ref, DATASIZE, buffer);
+    }
     
     // Cleanup
     if(h_ary) delete[] h_ary;
