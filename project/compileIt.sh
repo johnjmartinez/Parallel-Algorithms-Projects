@@ -6,12 +6,11 @@
 
 set -x
 _cu_=$1
-nvcc $_cu_ \
-    -I cuda_common/inc/ \
-    -I cub/ \
-    -std=c++11 \
-    -l cuda \
+nvcc $_cu_ -O3 \
+    -I cuda_common/inc/ -I cub/ \
+    -lineinfo -l cuda\
+    -std=c++11 --expt-extended-lambda\
     -arch=compute_61 -code=sm_61 \
-    -o ${_cu_%.cu}_
+    -o ${_cu_%.cu}_ -use_fast_math 
 
 #    -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES \
