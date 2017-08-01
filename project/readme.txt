@@ -30,7 +30,7 @@
     }
     
     tag=GTX1050Ti #<GPU>
-    for i in `seq 19 25`; do
+    for i in `seq 15 25`; do
         val=$((1<<${i})) 
         run_sorts &> misc/${tag}.log.${val}
     done
