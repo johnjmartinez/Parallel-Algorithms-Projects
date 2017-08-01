@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <cuda_common.h>     
 
-#define SHARED_SIZE_LIMIT 2048U
+#define SHARED_SIZE_LIMIT 1024U
 
 //Map to single instructions on G8x / G9x / G100
 #define UMUL(a, b) __umul24((a), (b))
@@ -128,20 +128,16 @@ int main(int argc, char** argv)  {
     int numThreads = SHARED_SIZE_LIMIT / 2;
     
     checkCudaErrors(cudaDeviceSynchronize());
-
     for (unsigned int i = 0; i < numIterations; i++) {
 
         checkCudaErrors(cudaEventRecord(start)); //start tmp_time
         checkCudaErrors(cudaMemcpy( d_input, h_input, arr_size, cudaMemcpyHostToDevice)); // copy from Host to Dev
-
         oddEvenSortShared<<< numBlks, numThreads >>>( d_input, d_output, SHARED_SIZE_LIMIT ); // sort on shared
-
         for (int size = 2 * SHARED_SIZE_LIMIT; size <= DATASIZE; size <<= 1) {
             for (int stride = size / 2; stride > 0; stride >>= 1) {
                 oddEvenMergeGlobal<<< DATASIZE / 512, 256 >>>( d_output, d_output, size, stride ); // merge on global
             }
         }
-        
         checkCudaErrors(cudaEventRecord(stop)); // end tmp_time
         checkCudaErrors(cudaEventSynchronize(stop));
 
@@ -149,14 +145,14 @@ int main(int argc, char** argv)  {
         checkCudaErrors(cudaEventElapsedTime(&tmp_time, start, stop));
         et += tmp_time;
     }
-    
     checkCudaErrors(cudaDeviceSynchronize());
+    
     checkCudaErrors(cudaMemcpy( h_output, d_output, arr_size, cudaMemcpyDeviceToHost)); // copy from Dev to Host
     printf("Sorting %s\n", (std::is_sorted(h_output, h_output+DATASIZE) ? "succeed." : "FAILED.") );
     //printArray(h_ref, DATASIZE, "output");
     
     tmp_time = et/1000/numIterations;
-    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n\n", 
+    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n", 
         1e-6 * DATASIZE / tmp_time, tmp_time * 1000);
 
     cudaFree(d_input);

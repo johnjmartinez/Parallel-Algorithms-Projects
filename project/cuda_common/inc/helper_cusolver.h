@@ -141,11 +141,10 @@ double second (void)
     }
 }
 
-#elif defined(__linux)
+#elif defined(__linux) || defined(__QNX__)
 #include <stddef.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include <sys/sysinfo.h>
 double second (void)
 {
     struct timeval tv;

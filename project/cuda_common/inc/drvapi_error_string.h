@@ -189,6 +189,12 @@ static s_CudaErrorStr sCudaDrvErrorString[] =
     { "CUDA_ERROR_CONTEXT_ALREADY_IN_USE", 216 },
 
     /**
+    * This indicates that an uncorrectable NVLink error was detected during the
+    * execution.
+    */
+    { "CUDA_ERROR_NVLINK_UNCORRECTABLE", 220 },
+
+    /**
      * This indicates that the device kernel source is invalid.
      */
     { "CUDA_ERROR_INVALID_SOURCE", 300 },

@@ -9,8 +9,8 @@
 
 using namespace cub;
 
-template <typename T>
-__global__ void cubBlkSort(T *d_in, T *d_out, const int BLOCK_THREADS, const int ELEMS_PER_THREAD) {
+template <typename T, int BLOCK_THREADS, int ELEMS_PER_THREAD>
+__global__ void cubBlkSort(T *d_in, int *d_out) {
 
     enum { TILE_SIZE = BLOCK_THREADS * ELEMS_PER_THREAD };
     
@@ -24,7 +24,7 @@ __global__ void cubBlkSort(T *d_in, T *d_out, const int BLOCK_THREADS, const int
         typename localBlkSort::TempStorage sort;
     } tmpStorage;    
 
-    T threadData[ELEMS_PER_THREAD];
+    int threadData[ELEMS_PER_THREAD];
     const int blkOffset = blockIdx.x * TILE_SIZE;
     
     localBlkLoad(tmpStorage.load).Load(d_in + blkOffset, threadData);
@@ -37,9 +37,9 @@ __global__ void cubBlkSort(T *d_in, T *d_out, const int BLOCK_THREADS, const int
 }
 
 template <typename T>
-void cubDevSort (int COUNT, T *d_in, T *d_out) {
+void cubDevSort (int COUNT, int *d_in, int *d_out) {
     
-    int beginBit = 0, endBit = 8*sizeof(T); // Bit subrange [beginBit, endBit) of differentiating T bits
+    int beginBit = 0, endBit = 8*sizeof(T); // Bit subrange [beginBit, endBit) of differentiating int bits
     
     DoubleBuffer<int> dElems;
     cudaMalloc((void**)&dElems.d_buffers[0], COUNT*sizeof(T));
@@ -66,26 +66,32 @@ void printArray(int *a, int len, const char *fileName) {
     fclose(fptr);
 }
 
-template <typename T>
-float sort (const int shift, const int SIZE, T *d_1, T *d_2, T *h_ary, T *h_ref,
+void sort (const int x, const int SIZE, int *d_1, int *d_2, int *h_ary, int *h_ref,
             cudaEvent_t &start, cudaEvent_t &stop) {
 
     const int numIterations = 32;
-    const int BLOCK_THREADS = 1024>>shift;
-    const int ELEMS_PER_THREAD = 1<<shift;
+    const int BLOCK_THREADS = 1024>>x;
+    const int ELEMS_PER_THREAD = 1<<x;
     const int numBlks = SIZE / BLOCK_THREADS / ELEMS_PER_THREAD;
+    
+    float et = 0;
+    float tmp_time = 0;
+    unsigned int memAlloc = SIZE * sizeof(int);
     
     checkCudaErrors(cudaDeviceSynchronize());
     for (unsigned int i = 0; i < numIterations; i++) {
 
         checkCudaErrors(cudaEventRecord(start)); //start tmp_time    
-        
-        checkCudaErrors(cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)); // copy from Host to Dev
-        cubBlkSort<int> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2);   
-        cubDevSort<int> (SIZE, d_2, d_2);
-
-        checkCudaErrors(cudaDeviceSynchronize());
-
+        checkCudaErrors(cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)); // copy from Host to Dev        
+        switch(x) {
+            case 0 : cubBlkSort<int, 1024,1> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2); break;     
+            case 1 : cubBlkSort<int, 512, 2> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2); break;
+            case 2 : cubBlkSort<int, 256, 4> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2); break;     
+            case 3 : cubBlkSort<int, 128, 8> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2); break;     
+            case 4 : cubBlkSort<int, 64, 16> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2); break;     
+            case 5 : cubBlkSort<int, 32, 32> <<< numBlks, BLOCK_THREADS >>> (d_1, d_2); break;     
+        }
+        //cubDevSort<int> (SIZE, d_2, d_2);
         checkCudaErrors(cudaEventRecord(stop)); // end tmp_time
         checkCudaErrors(cudaEventSynchronize(stop));
 
@@ -93,26 +99,31 @@ float sort (const int shift, const int SIZE, T *d_1, T *d_2, T *h_ary, T *h_ref,
         checkCudaErrors(cudaEventElapsedTime(&tmp_time, start, stop));
         et += tmp_time;
     }
+    checkCudaErrors(cudaDeviceSynchronize());
     
-    tmp_time = et/1000/numIterations;    
-    cudaMemcpy(h_ref, d_2, memAlloc, cudaMemcpyDeviceToHost); // copy from Dev to Host
+    tmp_time = et/1000/numIterations;        
+    printf("%4d Ts | %2d elems/T: Throughput =%9.3lf MElements/s, Time = %.3lf ms\n",
+               BLOCK_THREADS, ELEMS_PER_THREAD, 1e-6 * SIZE / tmp_time, tmp_time * 1000);
+
+    printArray(h_ref, SIZE, "s_input"); printArray(h_ary, SIZE, "input");
+    cudaMemcpy(h_ref, d_1, memAlloc, cudaMemcpyDeviceToHost); // copy from Dev to Host
     printf("Sorting %s\n", (std::is_sorted(h_ref, h_ref+SIZE) ? "succeed." : "FAILED.") );
-    //printArray(h_ref, SIZE, "output");
-    return tmp_time;
+    char buffer [20];
+    sprintf (buffer, "%04d_%02d_output", BLOCK_THREADS, ELEMS_PER_THREAD);
+    printArray(h_ref, SIZE, buffer);
 
 }
 
 int main(int argc, char** argv) {
 
     cudaDeviceReset();
-    float et = 0;
-    float tmp_time = 0;
-    
     cudaEvent_t start, stop;
     cudaEventCreate(&start); 
     cudaEventCreate(&stop);
+    DisplayCudaDevice();
 
     const int DATASIZE = atoi(argv[1]);
+    printf("Input array size : %d\n", DATASIZE);
     
     int *h_ary, *h_ref; // Host []
     int *d_1, *d_2; // Dev []
@@ -126,19 +137,10 @@ int main(int argc, char** argv) {
 
     srand(time(NULL));
     for( int i = 0; i < DATASIZE; i++ ) h_ary[i]  = rand() ; // generating Host[] values
-    //std::copy(h_ary, h_ary+DATASIZE, h_ref); std::sort(h_ref, h_ref+DATASIZE);
+    std::copy(h_ary, h_ary+DATASIZE, h_ref); std::sort(h_ref, h_ref+DATASIZE);    
     
-    printf("Input array size : %d\n", DATASIZE);
-    //printArray(h_ary, DATASIZE, "input"); printArray(h_ref, DATASIZE, "s_input");
-
-    auto _print_ = [&] (int blkT, int numPerT, float totalTime) {
-        printf("%dTs|%dElems/T: Throughput =%9.3lf MElements/s, Time = %.3lf ms\n",
-               blkT, numPerT, 1e-6 * DATASIZE / totalTime, totalTime * 1000);
-    };
-    
-    for(int i=0; i<=5; i++)  
-        _print_ (1024>>i, 1<<i, sort<int>(i, DATASIZE, d_1, d_2, h_ary, h_ref, start, stop));  
-    printf("\n");
+    //for(int i=0; i<=5; i++) sort(i, DATASIZE, d_1, d_2, h_ary, h_ref, start, stop);  
+    sort(4, DATASIZE, d_1, d_2, h_ary, h_ref, start, stop); 
 
     // Cleanup
     if(h_ary) delete[] h_ary;

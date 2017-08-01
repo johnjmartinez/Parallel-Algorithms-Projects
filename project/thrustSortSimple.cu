@@ -23,6 +23,7 @@ static void cuda_assert(const cudaError_t code, const char* const file, const in
 
 static void sort(thrust::host_vector<int>& h_vec, cudaEvent_t start, cudaEvent_t end, float* const elapsed) {
     
+    cuda(DeviceSynchronize());    
     cuda(EventRecord (start));
 
     thrust::device_vector<int> d_vec = h_vec; // copy data to device
@@ -30,6 +31,7 @@ static void sort(thrust::host_vector<int>& h_vec, cudaEvent_t start, cudaEvent_t
 
     cuda(EventRecord(end));
     cuda(EventSynchronize(end));
+    cuda(DeviceSynchronize());    
 
     float sort_elapsed;
     cuda(EventElapsedTime(&sort_elapsed, start, end));
@@ -50,10 +52,9 @@ static void measure(const struct cudaDeviceProp* const props, const int DATASIZE
 
     cuda(EventDestroy(start));
     cuda(EventDestroy(end));
-
+    
     float time = elapsed / 32.0 / 1000; // in secs
-    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n\n", 
-        1e-6 * DATASIZE / time, time * 1000);
+    printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n",  1e-6 * DATASIZE / time, time * 1000);
 }
 
 int main(int argc, char** argv) {
@@ -66,6 +67,5 @@ int main(int argc, char** argv) {
     
     measure( &props, DATASIZE );  // SORT
     cuda(DeviceReset()); // RESET
-
     return 0;
 }

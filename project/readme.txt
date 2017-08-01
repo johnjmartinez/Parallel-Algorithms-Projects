@@ -6,7 +6,7 @@
  * radixSort.cu          - basic radix sort implementation
  * brickSort.cu          - basic brick sort implementation
  * brickSort2.cu         - shared mem brick sort+merge implementation
- * brickSort3.cu         - cub blk sort + brick merge implementation (NOT WORKING YET -- debugging)
+ * brickSort3.cu         - cub blk sort + brick merge implementation 
 
  * thrustSortSimple.cu   - simple gpu sort using thrust library
  * thrustMergeSort.cu    - mergesort using thrust library
@@ -18,9 +18,7 @@
  
  - Creating logs by running, i.e.  (shell script below)
     function run_sorts() {  
-        set -x
-        for x in *_; do ./$x $val; done
-        set +x  
+        for x in *_; do echo -e "\n==== $x"; ./$x $val; done
     }
     
     tag=<gpu> ... ie GT720

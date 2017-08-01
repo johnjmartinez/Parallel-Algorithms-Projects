@@ -48,24 +48,22 @@ double devRadixSort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &star
 
     int numIterations = 0;
     double totalTime = 0;
-
+    
+    checkCudaErrors(cudaDeviceSynchronize());
     for ( ; totalTime < MIN_BENCH_TIME; numIterations++) {
 
         checkCudaErrors(cudaEventRecord (start));
-        
         randFill<elem> <<< n/1024+1, 1024 >>> (d_array, n);  // Fill source buffer with random numbers
-        checkCudaErrors(cudaDeviceSynchronize());
- 
         // Run sorting operation
-        checkCudaErrors(cub::DeviceRadixSort::SortKeys(d_temp_storage, temp_storage_bytes, d_elems, n, begin_bit, end_bit));
-        checkCudaErrors(cudaDeviceSynchronize());
-        
-        checkCudaErrors(cudaEventRecord (stop)); // Record time
-        
+        checkCudaErrors(cub::DeviceRadixSort::SortKeys(d_temp_storage, temp_storage_bytes, d_elems, n, begin_bit, end_bit));        
+        checkCudaErrors(cudaEventRecord (stop));
+        checkCudaErrors(cudaEventSynchronize(stop));
+       
         float time;
         checkCudaErrors(cudaEventElapsedTime (&time, start, stop));
-        totalTime += time/1000; // converts milliseconds to seconds
+        totalTime += time/1000; 
     }
+    checkCudaErrors(cudaDeviceSynchronize());
 
     checkCudaErrors(cudaFree (d_temp_storage)); // Release temp storage
     return totalTime/numIterations;
@@ -73,7 +71,7 @@ double devRadixSort (int SORT_BYTES, size_t n, void *d_array0, cudaEvent_t &star
 
 int main (int argc, char **argv) {
 
-    const int DATASIZE = atoi(argv[1]); // defaultDATASIZE;
+    const int DATASIZE = atoi(argv[1]); 
 
     DisplayCudaDevice();
 
@@ -92,6 +90,6 @@ int main (int argc, char **argv) {
     printf("Sorting %d elements:\n", DATASIZE);
     for(int i=1; i<=4; i++)  
         print (i, 4, devRadixSort<int>(i, DATASIZE, d_array, start, stop));  
-    printf("\n");
+    cudaDeviceReset();
     return 0;
 }

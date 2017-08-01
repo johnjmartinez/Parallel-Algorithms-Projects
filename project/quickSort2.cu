@@ -133,10 +133,10 @@ int main(int argc, char **argv) {
     //testing sort
     for(int i=0;i<DATASIZE-1;i++) {
         if (h_input[i]>h_input[i+1]) {
-            printf("Sorting Failed\n\n");
+            printf("Sorting Failed\n");
             break;
         }
-        else if(i== DATASIZE-2) printf("Sorting Successful\n\n");
+        else if(i== DATASIZE-2) printf("Sorting Successful\n");
     }
     
     //printing result printArray( h_input, DATASIZE, "output");

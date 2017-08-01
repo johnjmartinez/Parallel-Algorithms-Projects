@@ -62,7 +62,7 @@ class CheckRender
             // Release PBO resources
             if (m_bUsePBO)
             {
-                glDeleteBuffersARB(1, &m_pboReadback);
+                glDeleteBuffers(1, &m_pboReadback);
                 m_pboReadback = 0;
             }
 
@@ -75,10 +75,10 @@ class CheckRender
             // Create the PBO for readbacks
             if (bUsePBO)
             {
-                glGenBuffersARB(1, &m_pboReadback);
-                glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, m_pboReadback);
-                glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, width*height*Bpp, NULL, GL_STREAM_READ);
-                glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
+                glGenBuffers(1, &m_pboReadback);
+                glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, m_pboReadback);
+                glBufferData(GL_PIXEL_UNPACK_BUFFER_ARB, width*height*Bpp, NULL, GL_STREAM_READ);
+                glBindBuffer(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
             }
 
             m_pImageData = (unsigned char *)malloc(width*height*Bpp);  // This is the image data stored in system memory
@@ -134,7 +134,7 @@ class CheckRender
 
             if (m_bUsePBO)
             {
-                glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, m_pboReadback);   // Bind the PBO
+                glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, m_pboReadback);   // Bind the PBO
             }
         }
 
@@ -148,7 +148,7 @@ class CheckRender
 
             if (m_bUsePBO)
             {
-                glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, 0);   // Release the bind on the PBO
+                glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, 0);   // Release the bind on the PBO
             }
         }
 
@@ -627,10 +627,10 @@ class CheckBackBuffer : public CheckRender
                 }
 
                 // map - unmap simulates readback without the copy
-                void *ioMem = glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB);
+                void *ioMem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);
                 memcpy(m_pImageData,    ioMem, width*height*m_Bpp);
 
-                glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+                glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
 
                 // release the PBO
                 unbindReadback();
@@ -670,10 +670,10 @@ class CheckBackBuffer : public CheckRender
                     }
 
                     // map - unmap simulates readback without the copy
-                    void *ioMem = glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB);
+                    void *ioMem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);
                     memcpy(m_pImageData,    ioMem, width*height*m_Bpp);
 
-                    glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+                    glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
 
                     // release the FBO
                     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
@@ -711,10 +711,10 @@ class CheckBackBuffer : public CheckRender
 
                 printf("CheckBackBuffer::readback() PBO->m_pImageData\n");
                 // read from bufObject (PBO) to system memorys image
-                glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, bufObject);   // Bind the PBO
+                glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, bufObject);   // Bind the PBO
 
                 // map - unmap simulates readback without the copy
-                void *ioMem = glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB);
+                void *ioMem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);
 
                 // allocate a buffer so we can flip the image
                 unsigned char *temp_buf = (unsigned char *)malloc(width*height*m_Bpp);
@@ -728,10 +728,10 @@ class CheckBackBuffer : public CheckRender
 
                 free(temp_buf);
 
-                glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+                glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
 
                 // read from bufObject (PBO) to system memory image
-                glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, 0);   // unBind the PBO
+                glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, 0);   // unBind the PBO
             }
 
             return CHECK_FBO;
@@ -1336,10 +1336,10 @@ class CheckFBO: public CheckRender
                 }
 
                 // map - unmap simulates readback without the copy
-                void *ioMem = glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB);
+                void *ioMem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);
                 memcpy(m_pImageData,    ioMem, width*height*m_Bpp);
 
-                glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+                glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
 
                 // release the FBO
                 glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
@@ -1399,10 +1399,10 @@ class CheckFBO: public CheckRender
                     }
 
                     // map - unmap simulates readback without the copy
-                    void *ioMem = glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB);
+                    void *ioMem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);
                     memcpy(m_pImageData,    ioMem, width*height*m_Bpp);
 
-                    glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+                    glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
 
                     // release the FBO
                     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
@@ -1439,16 +1439,16 @@ class CheckFBO: public CheckRender
             {
                 printf("CheckFBO::readback() PBO->m_pImageData\n");
                 // read from bufObject (PBO) to system memorys image
-                glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, bufObject);   // Bind the PBO
+                glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, bufObject);   // Bind the PBO
 
                 // map - unmap simulates readback without the copy
-                void *ioMem = glMapBufferARB(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY_ARB);
+                void *ioMem = glMapBuffer(GL_PIXEL_PACK_BUFFER_ARB, GL_READ_ONLY);
                 memcpy(m_pImageData,    ioMem, width*height*m_Bpp);
 
-                glUnmapBufferARB(GL_PIXEL_PACK_BUFFER_ARB);
+                glUnmapBuffer(GL_PIXEL_PACK_BUFFER_ARB);
 
                 // read from bufObject (PBO) to system memory image
-                glBindBufferARB(GL_PIXEL_PACK_BUFFER_ARB, 0);   // unBind the PBO
+                glBindBuffer(GL_PIXEL_PACK_BUFFER_ARB, 0);   // unBind the PBO
             }
 
             return CHECK_FBO;

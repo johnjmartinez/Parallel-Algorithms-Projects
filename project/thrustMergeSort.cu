@@ -46,27 +46,29 @@ bool testSort(int argc, char **argv) {
     thrust::device_vector<T> d_elems;
 
     // run multiple iterations to compute an average sort time
-    cudaEvent_t start_event, stop_event;
-    checkCudaErrors(cudaEventCreate(&start_event));
-    checkCudaErrors(cudaEventCreate(&stop_event));
+    cudaEvent_t start, stop;
+    checkCudaErrors(cudaEventCreate(&start));
+    checkCudaErrors(cudaEventCreate(&stop));
 
     float totalTime = 0;
     float time = 0;
 
+    checkCudaErrors(cudaDeviceSynchronize());    
     for (unsigned int i = 0; i < numIterations; i++) {
         
-        checkCudaErrors(cudaEventRecord(start_event));
+        checkCudaErrors(cudaEventRecord(start));
 
         d_elems = h_elems; // reset data before sort (copy from host to device)
         thrust::sort(d_elems.begin(), d_elems.end());
 
-        checkCudaErrors(cudaEventRecord(stop_event));
-        checkCudaErrors(cudaEventSynchronize(stop_event));
+        checkCudaErrors(cudaEventRecord(stop));
+        checkCudaErrors(cudaEventSynchronize(stop));
 
         time = 0;
-        checkCudaErrors(cudaEventElapsedTime(&time, start_event, stop_event));
+        checkCudaErrors(cudaEventElapsedTime(&time, start, stop));
         totalTime += time;
     }
+    checkCudaErrors(cudaDeviceSynchronize());    
 
     time = totalTime / numIterations / 1000; // in secs
     printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n", 1e-6 * DATASIZE / time, time*1000);
@@ -79,8 +81,8 @@ bool testSort(int argc, char **argv) {
     // Check results
     bool sortResult = thrust::is_sorted(h_elemsSorted.begin(), h_elemsSorted.end());
 
-    checkCudaErrors(cudaEventDestroy(start_event));
-    checkCudaErrors(cudaEventDestroy(stop_event));
+    checkCudaErrors(cudaEventDestroy(start));
+    checkCudaErrors(cudaEventDestroy(stop));
 
     return sortResult;
 }
@@ -92,5 +94,5 @@ int main(int argc, char **argv) {
     bool sortResult = testSort<int>(argc, argv);
     
     checkCudaErrors(cudaDeviceReset());
-    printf(sortResult ? "Sort passed\n\n" : "Sort failed!\n\n");
+    printf(sortResult ? "Sort passed\n" : "Sort failed!\n");
 }
