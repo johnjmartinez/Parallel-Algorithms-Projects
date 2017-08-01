@@ -10,14 +10,7 @@ using namespace cub;
 template <typename T>
 void cubDevSort (int COUNT, T *d_in, T *d_out) {
     
-    int beginBit = 0, endBit = 64;//*sizeof(T); // Bit subrange [beginBit, endBit) for differentiating elem bits
-    
-    /*
-    DoubleBuffer<T> dElems;
-    cudaMalloc((void**)&dElems.d_buffers[0], COUNT*sizeof(T));
-    cudaMalloc((void**)&dElems.d_buffers[1], COUNT*sizeof(T));
-    */
-    //auto d_array = d_in;
+    int beginBit = 0, endBit = 32; // Bit subrange [beginBit, endBit) for differentiating elem bits
     DoubleBuffer<T> dElems(d_in, d_in+COUNT);
     
     void *dTmp = NULL;
@@ -27,10 +20,9 @@ void cubDevSort (int COUNT, T *d_in, T *d_out) {
     checkCudaErrors(cudaMalloc (&dTmp, dTmpSize)); // Allocate temp storage
     
     // Run sorting operation
-    cudaMemcpy(dElems.d_buffers[dElems.selector], d_in, sizeof(T) * COUNT, cudaMemcpyDeviceToDevice);
     checkCudaErrors(DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit));
      
-    cudaMemcpy(d_out, dElems.Current(), sizeof(T) * COUNT, cudaMemcpyDeviceToDevice);
+    cudaMemcpy(d_out, dElems.Current(), sizeof(T)*COUNT, cudaMemcpyDeviceToDevice);
     checkCudaErrors(cudaFree(dTmp)); // Release temp storage
 }
 
@@ -60,8 +52,8 @@ int main(int argc, char** argv) {
     unsigned int memAlloc = DATASIZE * sizeof(int);
     h_ary = (int*)malloc(memAlloc); // allocatings_output memory for Hosts[]
     h_ref = (int*)malloc(memAlloc); // allocatings_output memory for Hosts[]
-    cudaMalloc((void**)&d_1, memAlloc+1024); // allocating memory for Dev[] + paddinng
-    cudaMalloc((void**)&d_2, memAlloc+1024); // allocating memory for Dev[] + paddinng
+    cudaMalloc((void**)&d_1, memAlloc*8); // allocating memory for Dev[] + paddinng
+    cudaMalloc((void**)&d_2, memAlloc*8); // allocating memory for Dev[] + paddinng
 
     srand(time(NULL));
     for( int i = 0; i < DATASIZE; i++ ) h_ary[i]  = rand() ; // generating Host[] values
@@ -88,15 +80,14 @@ int main(int argc, char** argv) {
     tmp_time = et/1000/numIterations;    
     printf("Throughput =%9.3lf MElements/s, Time = %.3lf ms\n", 
         1e-6 * DATASIZE / tmp_time, tmp_time  * 1000);
-    printf("int size: %lu\n", sizeof(int)*8);
     
     cudaMemcpy(h_ref, d_2, memAlloc, cudaMemcpyDeviceToHost); // copy from Dev to Host
     bool flag = std::is_sorted(h_ref, h_ref+DATASIZE);
     printf("Sorting %s\n", (flag)?"succeed.":"FAILED.");
-    if (!flag) {
+    /*if (!flag) {
         printArray(h_ref, DATASIZE, "output");
         printArray(h_ary, DATASIZE, "input");
-    }
+    }*/
 
     // Cleanup
     if(h_ary) delete[] h_ary;
