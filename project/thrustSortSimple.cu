@@ -1,5 +1,3 @@
-// COMPILE: nvcc thrustSortSimple.cu -I cuda_common/inc/ -o thrustSort
-
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 #include <thrust/generate.h>
