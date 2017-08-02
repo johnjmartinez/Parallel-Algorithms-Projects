@@ -178,7 +178,7 @@ void printArray(int *a, int len, const char *fileName) {
 int main(int argc, char** argv)  {
     
     const int DATASIZE = atoi(argv[1]); 
-    const int numIterations = 1;
+    const int numIterations = 16;
 
     float et = 0;
     float tmp_time = 0;
