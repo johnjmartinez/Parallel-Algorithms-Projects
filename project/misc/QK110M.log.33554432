@@ -3,64 +3,65 @@
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 33554432 elements:
 Sorting succeed.
-Throughput =   14.831 MElements/s, Time = 2262.467 ms
+Throughput =   14.579 MElements/s, Time = 2301.485 ms
 
 ==== brickSort3_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 33554432 elements
 Sorting succeed.
-Throughput =   14.382 MElements/s, Time = 2333.047 ms
+Throughput =   15.050 MElements/s, Time = 2229.580 ms
 
 ==== cubDevRadixSort_
-CUDA error at cubDevRadixSort.cu:23 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubDevRadixSort.cu:22 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432
 
 ==== cubDevRadixSort2_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 33554432 elements:
-1/4: Throughput =  656.158 MElements/s, Time = 51.138 ms
-2/4: Throughput =  349.948 MElements/s, Time = 95.884 ms
-3/4: Throughput =  239.979 MElements/s, Time = 139.822 ms
-4/4: Throughput =  176.335 MElements/s, Time = 190.288 ms
+1/4: Throughput =  644.658 MElements/s, Time = 52.050 ms
+2/4: Throughput =  343.169 MElements/s, Time = 97.778 ms
+3/4: Throughput =  235.601 MElements/s, Time = 142.420 ms
+4/4: Throughput =  173.613 MElements/s, Time = 193.271 ms
+
+==== mgpuMergeSort_
+Sorting 33554432 elements
+Sorting succeed.
+Throughput =   79.020 MElements/s, Time = 424.634 ms
 
 ==== quickSort2_
 Segmentation fault (core dumped)
 
-==== quick_sort_opt_mytest_
-Time is: 0.000000
-Sorting Failed!!
-
-==== thrustMergeSort_
+==== thrustOptmSort_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
-Sorting 33554432 32-bit int elems
-Throughput =  165.536 MElements/s, Time = 202.701 ms
+Sorting 33554432 elements:
+Throughput =  161.173 MElements/s, Time = 208.189 ms
 Sort passed
 
 ==== thrustSortSimple_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 33554432 elements:
-Throughput =  165.174 MElements/s, Time = 203.145 ms
+Throughput =  161.962 MElements/s, Time = 207.175 ms
 
 ==== cubBlkRadixSort_ 0
-CUDA error at cubBlkRadixSort.cu:52 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432
 
 ==== cubBlkRadixSort_ 1
-CUDA error at cubBlkRadixSort.cu:52 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432
 
 ==== cubBlkRadixSort_ 2
-CUDA error at cubBlkRadixSort.cu:52 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432
 
 ==== cubBlkRadixSort_ 3
-CUDA error at cubBlkRadixSort.cu:52 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432
 
 ==== cubBlkRadixSort_ 4
-CUDA error at cubBlkRadixSort.cu:52 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432
 
 ==== cubBlkRadixSort_ 5
-CUDA error at cubBlkRadixSort.cu:52 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
 Input array size : 33554432

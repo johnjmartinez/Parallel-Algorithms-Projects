@@ -6,8 +6,8 @@
 #include <cub/cub.cuh>
 
 #define SHARED_SIZE_LIMIT 1024U
-#define BLOCK_THREADS 32
-#define ELEMS_PER_THREAD 32
+#define BLOCK_THREADS 64
+#define ELEMS_PER_THREAD 16
 
 //Map to single instructions on G8x / G9x / G100
 #define UMUL(a, b) __umul24((a), (b))

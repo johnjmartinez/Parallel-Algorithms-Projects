@@ -3,71 +3,72 @@
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements:
 Sorting succeed.
-Throughput =   23.946 MElements/s, Time = 43.788 ms
+Throughput =   23.436 MElements/s, Time = 44.742 ms
 
 ==== brickSort3_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements
 Sorting succeed.
-Throughput =   22.796 MElements/s, Time = 45.999 ms
+Throughput =   24.401 MElements/s, Time = 42.973 ms
 
 ==== cubDevRadixSort_
 Input array size : 1048576
-Throughput =  145.194 MElements/s, Time = 7.222 ms
+Throughput =  141.927 MElements/s, Time = 7.388 ms
 Sorting succeed.
 
 ==== cubDevRadixSort2_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements:
-1/4: Throughput =  614.117 MElements/s, Time = 1.707 ms
-2/4: Throughput =  324.979 MElements/s, Time = 3.227 ms
-3/4: Throughput =  223.130 MElements/s, Time = 4.699 ms
-4/4: Throughput =  165.402 MElements/s, Time = 6.340 ms
+1/4: Throughput =  610.170 MElements/s, Time = 1.718 ms
+2/4: Throughput =  320.268 MElements/s, Time = 3.274 ms
+3/4: Throughput =  217.101 MElements/s, Time = 4.830 ms
+4/4: Throughput =  160.752 MElements/s, Time = 6.523 ms
+
+==== mgpuMergeSort_
+Sorting 1048576 elements
+Sorting succeed.
+Throughput =   82.301 MElements/s, Time = 12.741 ms
 
 ==== quickSort2_
 Segmentation fault (core dumped)
 
-==== quick_sort_opt_mytest_
-Time is: 0.000000
-Sorting Failed!!
-
-==== thrustMergeSort_
+==== thrustOptmSort_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
-Sorting 1048576 32-bit int elems
-Throughput =  148.727 MElements/s, Time = 7.050 ms
+Sorting 1048576 elements:
+Throughput =  143.920 MElements/s, Time = 7.286 ms
 Sort passed
 
 ==== thrustSortSimple_
 Quadro K1100M, CC 3.0.  VRAM 2.0 GB, 1400 MHz * 128-bit = 45 GB/s.  2 SM * 192 alu * 706 MHz * 2 = 0.54 TFLOPS
 Sorting 1048576 elements:
-Throughput =  145.640 MElements/s, Time = 7.200 ms
+Throughput =  140.783 MElements/s, Time = 7.448 ms
 
 ==== cubBlkRadixSort_ 0
 Input array size : 1048576
-1024 Ts |  1 elems/T: Throughput =   39.620 MElements/s, Time = 26.466 ms
+1024 Ts |  1 elems/T: Throughput =   38.441 MElements/s, Time = 27.277 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 1
 Input array size : 1048576
- 512 Ts |  2 elems/T: Throughput =   65.979 MElements/s, Time = 15.893 ms
+ 512 Ts |  2 elems/T: Throughput =   63.665 MElements/s, Time = 16.470 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 2
 Input array size : 1048576
- 256 Ts |  4 elems/T: Throughput =   91.295 MElements/s, Time = 11.486 ms
+ 256 Ts |  4 elems/T: Throughput =   88.454 MElements/s, Time = 11.854 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 3
 Input array size : 1048576
- 128 Ts |  8 elems/T: Throughput =  102.276 MElements/s, Time = 10.252 ms
+ 128 Ts |  8 elems/T: Throughput =   99.493 MElements/s, Time = 10.539 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 4
 Input array size : 1048576
-  64 Ts | 16 elems/T: Throughput =  103.260 MElements/s, Time = 10.155 ms
+  64 Ts | 16 elems/T: Throughput =   99.558 MElements/s, Time = 10.532 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 5
 Input array size : 1048576
-  32 Ts | 32 elems/T: Throughput =   74.137 MElements/s, Time = 14.144 ms
+  32 Ts | 32 elems/T: Throughput =   72.035 MElements/s, Time = 14.557 ms
 Sorting succeed.
