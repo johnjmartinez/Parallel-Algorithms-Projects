@@ -1,0 +1,39 @@
+misc/TeslaK20m.log.1048576:==== quickSort2_
+misc/TeslaK20m.log.1048576-Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+misc/TeslaK20m.log.1048576-Sorting 1048577 elements
+misc/TeslaK20m.log.1048576-Throughput =    0.024 MElements/s, Time = 43642.652 ms
+misc/TeslaK20m.log.1048576-Sorting Failed
+--
+misc/TeslaK20m.log.131072:==== quickSort2_
+misc/TeslaK20m.log.131072-Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+misc/TeslaK20m.log.131072-Sorting 131073 elements
+misc/TeslaK20m.log.131072-Throughput =    2.646 MElements/s, Time = 49.536 ms
+misc/TeslaK20m.log.131072-Sorting Successful
+--
+misc/TeslaK20m.log.2097152:==== quickSort2_
+--
+misc/TeslaK20m.log.262144:==== quickSort2_
+misc/TeslaK20m.log.262144-Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+misc/TeslaK20m.log.262144-Sorting 262145 elements
+misc/TeslaK20m.log.262144-Throughput =    3.543 MElements/s, Time = 73.995 ms
+misc/TeslaK20m.log.262144-Sorting Successful
+--
+misc/TeslaK20m.log.32768:==== quickSort2_
+misc/TeslaK20m.log.32768-Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+misc/TeslaK20m.log.32768-Sorting 32769 elements
+misc/TeslaK20m.log.32768-Throughput =    2.959 MElements/s, Time = 11.073 ms
+misc/TeslaK20m.log.32768-Sorting Successful
+--
+misc/TeslaK20m.log.4194304:==== quickSort2_
+--
+misc/TeslaK20m.log.524288:==== quickSort2_
+misc/TeslaK20m.log.524288-Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+misc/TeslaK20m.log.524288-Sorting 524289 elements
+misc/TeslaK20m.log.524288-Throughput =    3.500 MElements/s, Time = 149.808 ms
+misc/TeslaK20m.log.524288-Sorting Failed
+--
+misc/TeslaK20m.log.65536:==== quickSort2_
+misc/TeslaK20m.log.65536-Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+misc/TeslaK20m.log.65536-Sorting 65537 elements
+misc/TeslaK20m.log.65536-Throughput =    3.058 MElements/s, Time = 21.430 ms
+misc/TeslaK20m.log.65536-Sorting Successful

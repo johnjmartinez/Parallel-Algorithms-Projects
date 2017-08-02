@@ -1,0 +1,77 @@
+
+==== brickSort2_
+Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+Sorting 262144 elements:
+Sorting succeed.
+Throughput =  131.996 MElements/s, Time = 1.986 ms
+
+==== brickSort3_
+Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+Sorting 262144 elements
+Sorting succeed.
+Throughput =  135.367 MElements/s, Time = 1.937 ms
+
+==== cubDevRadixSort_
+Input array size : 262144
+Throughput =  226.347 MElements/s, Time = 1.158 ms
+Sorting succeed.
+
+==== cubDevRadixSort2_
+Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+Sorting 262144 elements:
+1/4: Throughput = 1557.911 MElements/s, Time = 0.168 ms
+2/4: Throughput =  816.341 MElements/s, Time = 0.321 ms
+3/4: Throughput =  576.626 MElements/s, Time = 0.455 ms
+4/4: Throughput =  430.353 MElements/s, Time = 0.609 ms
+
+==== mgpuMergeSort_
+Sorting 262144 elements
+Sorting succeed.
+Throughput =  112.001 MElements/s, Time = 2.341 ms
+
+==== thrustOptmSort_
+Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+Sorting 262144 elements:
+Throughput =  202.596 MElements/s, Time = 1.294 ms
+Sort passed
+
+==== thrustSortSimple_
+Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+Sorting 262144 elements:
+Throughput =  185.743 MElements/s, Time = 1.411 ms
+
+==== cubBlkRadixSort_ 0
+Input array size : 262144
+1024 Ts |  1 elems/T: Throughput =  130.418 MElements/s, Time = 2.010 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 262144
+ 512 Ts |  2 elems/T: Throughput =  170.389 MElements/s, Time = 1.539 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 262144
+ 256 Ts |  4 elems/T: Throughput =  192.792 MElements/s, Time = 1.360 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 262144
+ 128 Ts |  8 elems/T: Throughput =  199.683 MElements/s, Time = 1.313 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 262144
+  64 Ts | 16 elems/T: Throughput =  199.752 MElements/s, Time = 1.312 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 262144
+  32 Ts | 32 elems/T: Throughput =  176.120 MElements/s, Time = 1.488 ms
+Sorting succeed.
+
+==== quickSort2_
+Tesla K20m, CC 3.5.  VRAM 4.6 GB, 2600 MHz * 320-bit = 208 GB/s.  13 SM * 192 alu * 706 MHz * 2 = 3.52 TFLOPS
+Sorting 262145 elements
+Throughput =    3.359 MElements/s, Time = 78.039 ms
+Sorting Successful
