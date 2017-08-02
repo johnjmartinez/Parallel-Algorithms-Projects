@@ -3,67 +3,72 @@
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements:
 Sorting succeed.
-Throughput =   49.246 MElements/s, Time = 340.682 ms
+Throughput =   49.262 MElements/s, Time = 340.572 ms
 
 ==== brickSort3_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements
 Sorting succeed.
-Throughput =   50.306 MElements/s, Time = 333.502 ms
+Throughput =   50.261 MElements/s, Time = 333.801 ms
 
 ==== cubDevRadixSort_
 Input array size : 16777216
-Throughput =  648.899 MElements/s, Time = 25.855 ms
+Throughput =  651.141 MElements/s, Time = 25.766 ms
 Sorting succeed.
 
 ==== cubDevRadixSort2_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements:
-1/4: Throughput = 2864.899 MElements/s, Time = 5.856 ms
-2/4: Throughput = 2018.360 MElements/s, Time = 8.312 ms
-3/4: Throughput = 1539.545 MElements/s, Time = 10.898 ms
-4/4: Throughput = 1092.403 MElements/s, Time = 15.358 ms
+1/4: Throughput = 2860.851 MElements/s, Time = 5.864 ms
+2/4: Throughput = 2020.045 MElements/s, Time = 8.305 ms
+3/4: Throughput = 1540.866 MElements/s, Time = 10.888 ms
+4/4: Throughput = 1092.795 MElements/s, Time = 15.353 ms
+
+==== mgpuMergeSort_
+Sorting 16777216 elements
+Sorting succeed.
+Throughput =  417.935 MElements/s, Time = 40.143 ms
 
 ==== quickSort2_
 Segmentation fault (core dumped)
 
-==== thrustMergeSort_
+==== thrustOptmSort_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
-Sorting 16777216 32-bit int elems
-Throughput =  634.893 MElements/s, Time = 26.425 ms
+Sorting 16777216 elements:
+Throughput =  631.672 MElements/s, Time = 26.560 ms
 Sort passed
 
 ==== thrustSortSimple_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 16777216 elements:
-Throughput =  629.248 MElements/s, Time = 26.662 ms
+Throughput =  621.981 MElements/s, Time = 26.974 ms
 
 ==== cubBlkRadixSort_ 0
 Input array size : 16777216
-1024 Ts |  1 elems/T: Throughput =  230.373 MElements/s, Time = 72.826 ms
+1024 Ts |  1 elems/T: Throughput =  230.764 MElements/s, Time = 72.703 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 1
 Input array size : 16777216
- 512 Ts |  2 elems/T: Throughput =  402.157 MElements/s, Time = 41.718 ms
+ 512 Ts |  2 elems/T: Throughput =  403.296 MElements/s, Time = 41.600 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 2
 Input array size : 16777216
- 256 Ts |  4 elems/T: Throughput =  499.024 MElements/s, Time = 33.620 ms
+ 256 Ts |  4 elems/T: Throughput =  499.699 MElements/s, Time = 33.575 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 3
 Input array size : 16777216
- 128 Ts |  8 elems/T: Throughput =  544.004 MElements/s, Time = 30.840 ms
+ 128 Ts |  8 elems/T: Throughput =  538.253 MElements/s, Time = 31.170 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 4
 Input array size : 16777216
-  64 Ts | 16 elems/T: Throughput =  565.183 MElements/s, Time = 29.685 ms
+  64 Ts | 16 elems/T: Throughput =  563.998 MElements/s, Time = 29.747 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 5
 Input array size : 16777216
-  32 Ts | 32 elems/T: Throughput =  569.925 MElements/s, Time = 29.438 ms
+  32 Ts | 32 elems/T: Throughput =  568.507 MElements/s, Time = 29.511 ms
 Sorting succeed.

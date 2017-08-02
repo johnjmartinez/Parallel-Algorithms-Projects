@@ -3,68 +3,75 @@
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements:
 Sorting succeed.
-Throughput =  155.991 MElements/s, Time = 0.420 ms
+Throughput =  156.067 MElements/s, Time = 0.420 ms
 
 ==== brickSort3_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements
 Sorting succeed.
-Throughput =  166.112 MElements/s, Time = 0.395 ms
+Throughput =  166.612 MElements/s, Time = 0.393 ms
 
 ==== cubDevRadixSort_
 Input array size : 65536
-Throughput =  136.661 MElements/s, Time = 0.480 ms
+Throughput =  135.398 MElements/s, Time = 0.484 ms
 Sorting succeed.
 
 ==== cubDevRadixSort2_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements:
-1/4: Throughput = 1164.272 MElements/s, Time = 0.056 ms
-2/4: Throughput =  800.726 MElements/s, Time = 0.082 ms
-3/4: Throughput =  606.139 MElements/s, Time = 0.108 ms
-4/4: Throughput =  430.949 MElements/s, Time = 0.152 ms
+1/4: Throughput = 1168.611 MElements/s, Time = 0.056 ms
+2/4: Throughput =  802.492 MElements/s, Time = 0.082 ms
+3/4: Throughput =  605.879 MElements/s, Time = 0.108 ms
+4/4: Throughput =  431.754 MElements/s, Time = 0.152 ms
+
+==== mgpuMergeSort_
+Sorting 65536 elements
+Sorting succeed.
+Throughput =   35.657 MElements/s, Time = 1.838 ms
 
 ==== quickSort2_
-65536 Elements, Time : 72.362 ms
+GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
+Sorting 65537 elements
+Throughput =    8.045 MElements/s, Time = 8.147 ms
 Sorting Successful
 
-==== thrustMergeSort_
+==== thrustOptmSort_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
-Sorting 65536 32-bit int elems
-Throughput =  125.337 MElements/s, Time = 0.523 ms
+Sorting 65536 elements:
+Throughput =  124.102 MElements/s, Time = 0.528 ms
 Sort passed
 
 ==== thrustSortSimple_
 GeForce GTX 1050 Ti, CC 6.1.  VRAM 3.9 GB, 3504 MHz * 128-bit = 112 GB/s.  6 SM * 128 alu * 1455 MHz * 2 = 2.23 TFLOPS
 Sorting 65536 elements:
-Throughput =   90.893 MElements/s, Time = 0.721 ms
+Throughput =   90.577 MElements/s, Time = 0.724 ms
 
 ==== cubBlkRadixSort_ 0
 Input array size : 65536
-1024 Ts |  1 elems/T: Throughput =  134.471 MElements/s, Time = 0.487 ms
+1024 Ts |  1 elems/T: Throughput =  135.293 MElements/s, Time = 0.484 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 1
 Input array size : 65536
- 512 Ts |  2 elems/T: Throughput =  136.288 MElements/s, Time = 0.481 ms
+ 512 Ts |  2 elems/T: Throughput =  135.828 MElements/s, Time = 0.482 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 2
 Input array size : 65536
- 256 Ts |  4 elems/T: Throughput =  136.080 MElements/s, Time = 0.482 ms
+ 256 Ts |  4 elems/T: Throughput =  134.172 MElements/s, Time = 0.488 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 3
 Input array size : 65536
- 128 Ts |  8 elems/T: Throughput =  135.477 MElements/s, Time = 0.484 ms
+ 128 Ts |  8 elems/T: Throughput =  135.552 MElements/s, Time = 0.483 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 4
 Input array size : 65536
-  64 Ts | 16 elems/T: Throughput =  135.083 MElements/s, Time = 0.485 ms
+  64 Ts | 16 elems/T: Throughput =  136.415 MElements/s, Time = 0.480 ms
 Sorting succeed.
 
 ==== cubBlkRadixSort_ 5
 Input array size : 65536
-  32 Ts | 32 elems/T: Throughput =  136.388 MElements/s, Time = 0.481 ms
+  32 Ts | 32 elems/T: Throughput =  135.464 MElements/s, Time = 0.484 ms
 Sorting succeed.
