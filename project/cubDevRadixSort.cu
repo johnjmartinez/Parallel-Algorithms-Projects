@@ -1,8 +1,7 @@
-#include <cub/cub.cuh>
 #include <cstdio>
-#include <cuda.h>
 #include <algorithm>
 #include <cuda_common.h>       
+#include <cub/cub.cuh>
 #include "test/test_util.h"
 
 using namespace cub;

@@ -1,5 +1,3 @@
-// COMPILE WITH:  nvcc thrustRadixSort.cu -I cuda_common/inc/ -o thrustRadixSort
-
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
 #include <thrust/sort.h>
@@ -14,11 +12,10 @@
 template <typename T>
 bool testSort(int argc, char **argv) {
 
-    int keybits = 32; // INT32
     unsigned int DATASIZE = atoi(argv[1]);
     unsigned int numIterations = 32;
     
-    printf("Sorting %d %d-bit int elems\n", DATASIZE, keybits);
+    printf("Sorting %d elements:\n", DATASIZE);
 
     int deviceID = -1;
     if (cudaSuccess == cudaGetDevice(&deviceID)) {

@@ -1,11 +1,7 @@
-// https://stackoverflow.com/questions/21807872/making-cub-blockradixsort-on-chip-entirely
-
-#include <cub/cub.cuh>
 #include <cstdio>
-#include <cuda.h>
 #include <algorithm>
 #include <cuda_common.h>       
-#include "test/test_util.h"
+#include <cub/cub.cuh>
 
 using namespace cub;
 
@@ -97,7 +93,7 @@ int main(int argc, char** argv) {
     int numBlks = DATASIZE / BLOCK_THREADS / ELEMS_PER_THREAD;
 
     checkCudaErrors(cudaDeviceSynchronize());
-    for (unsigned int i = 0; i < numIterations; i++) {
+    for (int i = 0; i < numIterations; i++) {
 
         checkCudaErrors(cudaEventRecord(start)); //start tmp_time    
         checkCudaErrors(cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)); // copy from Host to Dev

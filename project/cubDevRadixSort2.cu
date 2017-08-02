@@ -1,12 +1,6 @@
-// time nvcc $cu -I ../cuda_common/inc/  -I cub/ -l cuda -std=c++11 -o ${cu%.cu} -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES
-
 #include <stdio.h>
-#include <vector>
-#include <functional>
 #include <stdint.h>
-#include <cuda.h>
 #include <cuda_common.h>    
-
 #include <cub/cub.cuh>
 
 // Parameters

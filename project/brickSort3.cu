@@ -1,10 +1,8 @@
 #include <stdio.h>
-#include <errno.h>
 #include <stdlib.h>
 #include <time.h>
-#include <cuda.h>
-#include <cuda_common.h>     
 #include <algorithm>
+#include <cuda_common.h>     
 #include <cub/cub.cuh>
 
 #define SHARED_SIZE_LIMIT 1024U
