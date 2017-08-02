@@ -11,7 +11,7 @@ nvcc $_cu_ \
     -I cub/ \
     -std=c++11 \
     -l cuda \
-    -arch=compute_61 -code=sm_61 \
+    -arch=compute_30 -code=sm_30 \
     -o ${_cu_%.cu}_
 
 #    -D_MWAITXINTRIN_H_INCLUDED -D_FORCE_INLINES \
