@@ -204,7 +204,7 @@ int main(int argc, char** argv)  {
     for( int i = 0; i < DATASIZE; i++ ) {  // generating Host[] values
         h_data[i]  = rand() ; h_pos[i] = i;
     }
-    printf("Sorting %d elements\n", DATASIZE); printArray(h_data, DATASIZE, "input");
+    printf("Sorting %d elements\n", DATASIZE); //printArray(h_data, DATASIZE, "input");
     
     cudaDeviceSynchronize(); CUDA_CHECK(cudaGetLastError());
     //for (unsigned int i = 0; i < numIterations; i++) {
@@ -226,8 +226,8 @@ int main(int argc, char** argv)  {
     CUDA_CHECK(cudaMemcpy(h_pos, d_pos_out, arrAlloc, cudaMemcpyDeviceToHost));  // copy from Dev to Host
     CUDA_CHECK(cudaMemcpy(h_data, d_data_out, arrAlloc, cudaMemcpyDeviceToHost));  // copy from Dev to Host
     printf("Sorting %s\n", (std::is_sorted(h_data, h_data+DATASIZE) ? "succeed." : "FAILED.") );
-    printArray(h_data, DATASIZE, "data_out");
-    printArray(h_pos, DATASIZE, "post_out");
+    //printArray(h_data, DATASIZE, "data_out");
+    //printArray(h_pos, DATASIZE, "post_out");
 
     tmp_time = et/1000/numIterations;
     printf("Throughput =%9.3lf MElements/s, Time = %.9lf ms\n",  1e-6*DATASIZE/tmp_time, tmp_time*1000);

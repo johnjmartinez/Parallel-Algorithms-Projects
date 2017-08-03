@@ -1,8 +1,23 @@
-	QK110M.log.32768		QK110M.log.65536		QK110M.log.131072		QK110M.log.262144		QK110M.log.524288		QK110M.log.1048576		QK110M.log.2097152		QK110M.log.4194304		QK110M.log.8388608		QK110M.log.16777216		QK110M.log.33554432	
-	quickSort2	2.784 M/s		quickSort2	2.188 M/s		quickSort2	3.330 M/s		quickSort2	3.619 M/s		quickSort2	3.181 M/s		quickSort2			quickSort2			quickSort2			quickSort2			quickSort2			quickSort2		
-	brickSort2	36.253 M/s		brickSort2	32.292 M/s		brickSort2	29.602 M/s		brickSort2	27.152 M/s		brickSort2	25.053 M/s		brickSort2	23.436 M/s		brickSort2	20.948 M/s		brickSort2	18.735 M/s		brickSort2	17.186 M/s		brickSort2	15.739 M/s		brickSort2	14.579 M/s	
-	brickSort3	36.805 M/s		brickSort3	33.712 M/s		brickSort3	31.065 M/s		brickSort3	28.364 M/s		brickSort3	26.393 M/s		brickSort3	24.401 M/s		brickSort3	21.735 M/s		brickSort3	19.318 M/s		brickSort3	17.406 M/s		brickSort3	16.125 M/s		brickSort3	15.050 M/s	
-	thrustSortSimple	42.752 M/s		thrustSortSimple	48.057 M/s		thrustSortSimple	69.980 M/s		thrustSortSimple	99.352 M/s		thrustSortSimple	124.862 M/s		thrustSortSimple	140.783 M/s		thrustSortSimple	147.094 M/s		thrustSortSimple	154.678 M/s		thrustSortSimple	157.513 M/s		thrustSortSimple	160.616 M/s		thrustSortSimple	161.962 M/s	
-	thrustOptmSort	54.311 M/s		thrustOptmSort	53.821 M/s		thrustOptmSort	76.031 M/s		thrustOptmSort	103.791 M/s		thrustOptmSort	128.817 M/s		thrustOptmSort	143.920 M/s		thrustOptmSort	149.405 M/s		thrustOptmSort	153.734 M/s		thrustOptmSort	157.131 M/s		thrustOptmSort	160.542 M/s		thrustOptmSort	161.173 M/s	
-	cubDevRadixSort_	40.645 M/s		cubDevRadixSort_	54.720 M/s		cubDevRadixSort_	80.326 M/s		cubDevRadixSort_	108.172 M/s		cubDevRadixSort_	126.156 M/s		cubDevRadixSort_	141.927 M/s		cubDevRadixSort_	143.668 M/s		cubDevRadixSort_	143.867 M/s		cubDevRadixSort_	146.788 M/s		cubDevRadixSort_	151.995 M/s		cubDevRadixSort_		
-	mgpuMergeSort	22.760 M/s		mgpuMergeSort	31.567 M/s		mgpuMergeSort	44.097 M/s		mgpuMergeSort	56.111 M/s		mgpuMergeSort	72.116 M/s		mgpuMergeSort	82.301 M/s		mgpuMergeSort	88.330 M/s		mgpuMergeSort	86.563 M/s		mgpuMergeSort	85.856 M/s		mgpuMergeSort	80.745 M/s		mgpuMergeSort	79.020 M/s	
+	32768 	65536 	131072 	262144 	524288 	1048576 2097152 4194304 8388608 16777216 33554432 
+									
+	2.784	2.188	3.330	3.619	3.181									
+	36.253	32.292	29.602	27.152	25.053	23.436	20.948	18.735	17.186	15.739	 14.579  
+	36.805	33.712	31.065	28.364	26.393	24.401	21.735	19.318	17.406	16.125	 15.050  
+	42.752	48.057	69.980	99.352	124.862	140.783	147.094	154.678	157.513	160.616	 161.962 
+	54.311	53.821	76.031	103.791	128.817	143.920	149.405	153.734	157.131	160.542	 161.173 
+	40.645	54.720	80.326	108.172	126.156	141.927	143.668	143.867	146.788	151.995	     
+	22.760	31.567	44.097	56.111	72.116	82.301	88.330	86.563	85.856	80.745	 79.020  
+											
+	32768 	65536 	131072 	262144 	524288 	1048576 2097152 4194304 8388608 16777216 33554432 
+											
+	244.339	308.976	405.047	502.000	563.599	610.170	621.538	624.452	629.834	648.761	 644.658
+	128.954	160.468	209.983	263.259	294.479	320.268	327.209	332.545	335.759	345.318	 343.169
+	95.971	112.807	144.863	179.655	205.363	217.101	223.012	225.726	225.585	242.115	 235.601
+	70.152	84.401	107.568	131.648	151.223	160.752	164.233	168.965	170.159	174.242	 173.613
+											
+	24.924	28.704	32.124	34.849	37.947	38.441	38.756	39.627	39.728	39.983	
+	32.470	39.875	48.920	55.629	62.397	63.665	64.812	66.074	66.386	67.018	
+	37.788	50.430	61.390	74.137	84.767	88.454	89.842	90.977	92.187	92.974	
+	38.611	53.354	65.966	81.208	94.172	99.493	100.765	102.727	103.261	104.821	
+	40.231	52.203	66.699	83.187	95.584	99.558	102.000	103.942	104.338	106.256	
+	33.318	43.199	52.578	61.995	69.109	72.035	72.859	74.879	75.167	75.795	
