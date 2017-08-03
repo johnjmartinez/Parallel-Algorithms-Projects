@@ -1,5 +1,6 @@
 #include <helper_cuda.h>       // helper functions for CUDA error checking and initialization
 #include <cuda_runtime.h>
+#include <cuda_runtime_api.h>
 #include <cuda.h>
 
 // This function wraps the CUDA Driver API into a template function
