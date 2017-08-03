@@ -1,0 +1,69 @@
+
+==== brickSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 16777216 elements:
+Sorting succeed.
+Throughput =    6.935 MElements/s, Time = 2419.297 ms
+
+==== brickSort3_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 16777216 elements
+Sorting succeed.
+Throughput =    7.051 MElements/s, Time = 2379.264 ms
+
+==== cubDevRadixSort_
+CUDA error at cubDevRadixSort.cu:22 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
+
+==== cubDevRadixSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 16777216 elements:
+1/4: Throughput =  467.272 MElements/s, Time = 35.905 ms
+2/4: Throughput =  251.636 MElements/s, Time = 66.673 ms
+3/4: Throughput =  191.726 MElements/s, Time = 87.506 ms
+4/4: Throughput =  140.501 MElements/s, Time = 119.410 ms
+
+==== mgpuMergeSort_
+Sorting 16777216 elements
+Sorting succeed.
+Throughput =   77.612 MElements/s, Time = 216.169 ms
+
+==== radixSort2_
+Sorting 16777216 elements
+Sorting FAILED.
+Throughput =    2.259 MElements/s, Time = 7427.424804688 ms
+
+==== thrustOptmSort_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 16777216 elements:
+Throughput =  109.656 MElements/s, Time = 152.998 ms
+Sort passed
+
+==== thrustSortSimple_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 16777216 elements:
+Throughput =  109.856 MElements/s, Time = 152.721 ms
+
+==== cubBlkRadixSort_ 0
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
+
+==== cubBlkRadixSort_ 1
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
+
+==== cubBlkRadixSort_ 2
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
+
+==== cubBlkRadixSort_ 3
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
+
+==== cubBlkRadixSort_ 4
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
+
+==== cubBlkRadixSort_ 5
+CUDA error at cubBlkRadixSort.cu:48 code=2(cudaErrorMemoryAllocation) "DeviceRadixSort::SortKeys(dTmp, dTmpSize, dElems, COUNT, beginBit, endBit)" 
+Input array size : 16777216
