@@ -1,53 +1,76 @@
-+ for x in '*_'
-+ ./brickSort2_ 1048576
+
+==== brickSort2_
 GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
 Sorting 1048576 elements:
 Sorting succeed.
-Throughput =   10.922 MElements/s, Time = 96.010 ms
+Throughput =   11.045 MElements/s, Time = 94.935 ms
 
-+ for x in '*_'
-+ ./brickSort3_ 1048576
+==== brickSort3_
 GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
 Sorting 1048576 elements
 Sorting succeed.
-Throughput =   10.364 MElements/s, Time = 101.178 ms
+Throughput =   10.699 MElements/s, Time = 98.002 ms
 
-+ for x in '*_'
-+ ./cubBlkRadixSort_ 1048576
+==== cubDevRadixSort_
 Input array size : 1048576
+Throughput =   99.884 MElements/s, Time = 10.498 ms
 Sorting succeed.
-Throughput =   77.882 MElements/s, Time = 13.464 ms
 
-+ for x in '*_'
-+ ./cubDevRadixSort_ 1048576
-Input array size : 1048576
-Sorting succeed.
-Throughput =   97.770 MElements/s, Time = 10.725 ms
-
-+ for x in '*_'
-+ ./cubDevRadixSort2_ 1048576
+==== cubDevRadixSort2_
 GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
 Sorting 1048576 elements:
-1/4: Throughput =  440.972 MElements/s, Time = 2.378 ms
-2/4: Throughput =  233.459 MElements/s, Time = 4.491 ms
-3/4: Throughput =  171.284 MElements/s, Time = 6.122 ms
-4/4: Throughput =  127.214 MElements/s, Time = 8.243 ms
+1/4: Throughput =  445.280 MElements/s, Time = 2.355 ms
+2/4: Throughput =  244.976 MElements/s, Time = 4.280 ms
+3/4: Throughput =  184.170 MElements/s, Time = 5.694 ms
+4/4: Throughput =  135.972 MElements/s, Time = 7.712 ms
 
-+ for x in '*_'
-+ ./quickSort2_ 1048576
-Segmentation fault (core dumped)
+==== mgpuMergeSort_
+Sorting 1048576 elements
+Sorting succeed.
+Throughput =   85.516 MElements/s, Time = 12.262 ms
 
-+ for x in '*_'
-+ ./thrustMergeSort_ 1048576
+==== radixSort2_
+Sorting 1048576 elements
+Sorting succeed.
+Throughput =    2.194 MElements/s, Time = 477.902954102 ms
+
+==== thrustOptmSort_
 GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
-Sorting 1048576 32-bit int elems
-Throughput =   98.365 MElements/s, Time = 10.660 ms
+Sorting 1048576 elements:
+Throughput =  102.861 MElements/s, Time = 10.194 ms
 Sort passed
 
-+ for x in '*_'
-+ ./thrustSortSimple_ 1048576
+==== thrustSortSimple_
 GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
 Sorting 1048576 elements:
-Throughput =   96.125 MElements/s, Time = 10.908 ms
+Throughput =  101.739 MElements/s, Time = 10.307 ms
 
-+ set +x
+==== cubBlkRadixSort_ 0
+Input array size : 1048576
+1024 Ts |  1 elems/T: Throughput =   44.307 MElements/s, Time = 23.666 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 1048576
+ 512 Ts |  2 elems/T: Throughput =   65.673 MElements/s, Time = 15.967 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 1048576
+ 256 Ts |  4 elems/T: Throughput =   80.907 MElements/s, Time = 12.960 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 1048576
+ 128 Ts |  8 elems/T: Throughput =   86.647 MElements/s, Time = 12.102 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 1048576
+  64 Ts | 16 elems/T: Throughput =   87.387 MElements/s, Time = 11.999 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 1048576
+  32 Ts | 32 elems/T: Throughput =   82.048 MElements/s, Time = 12.780 ms
+Sorting succeed.

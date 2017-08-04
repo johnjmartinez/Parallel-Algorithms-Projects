@@ -1,0 +1,69 @@
+
+==== brickSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 33554432 elements:
+Sorting succeed.
+Throughput =    6.361 MElements/s, Time = 5275.035 ms
+
+==== brickSort3_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 33554432 elements
+Sorting succeed.
+Throughput =    6.395 MElements/s, Time = 5247.191 ms
+
+==== cubDevRadixSort_
+CUDA error at cubDevRadixSort.cu:68 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432
+
+==== cubDevRadixSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 33554432 elements:
+1/4: Throughput =  463.374 MElements/s, Time = 72.413 ms
+2/4: Throughput =  244.620 MElements/s, Time = 137.169 ms
+3/4: Throughput =  189.081 MElements/s, Time = 177.461 ms
+4/4: Throughput =  139.005 MElements/s, Time = 241.389 ms
+
+==== mgpuMergeSort_
+Sorting 33554432 elements
+Sorting succeed.
+Throughput =   73.862 MElements/s, Time = 454.287 ms
+
+==== radixSort2_
+Sorting 33554432 elements
+CUDA error at: radixSort2.cu:118
+out of memory cudaMalloc((void**)&d_predctFscan, size)
+
+==== thrustOptmSort_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 33554432 elements:
+Throughput =  111.774 MElements/s, Time = 300.198 ms
+Sort passed
+
+==== thrustSortSimple_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 33554432 elements:
+Throughput =  112.751 MElements/s, Time = 297.596 ms
+
+==== cubBlkRadixSort_ 0
+CUDA error at cubBlkRadixSort.cu:99 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432
+
+==== cubBlkRadixSort_ 1
+CUDA error at cubBlkRadixSort.cu:99 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432
+
+==== cubBlkRadixSort_ 2
+CUDA error at cubBlkRadixSort.cu:99 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432
+
+==== cubBlkRadixSort_ 3
+CUDA error at cubBlkRadixSort.cu:99 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432
+
+==== cubBlkRadixSort_ 4
+CUDA error at cubBlkRadixSort.cu:99 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432
+
+==== cubBlkRadixSort_ 5
+CUDA error at cubBlkRadixSort.cu:99 code=11(cudaErrorInvalidValue) "cudaMemcpy(d_1, h_ary, memAlloc, cudaMemcpyHostToDevice)" 
+Input array size : 33554432

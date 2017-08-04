@@ -1,0 +1,82 @@
+
+==== brickSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 32768 elements:
+Sorting succeed.
+Throughput =   46.046 MElements/s, Time = 0.712 ms
+
+==== brickSort3_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 32768 elements
+Sorting succeed.
+Throughput =   47.125 MElements/s, Time = 0.695 ms
+
+==== cubDevRadixSort_
+Input array size : 32768
+Throughput =   53.236 MElements/s, Time = 0.616 ms
+Sorting succeed.
+
+==== cubDevRadixSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 32768 elements:
+1/4: Throughput =  405.959 MElements/s, Time = 0.081 ms
+2/4: Throughput =  215.391 MElements/s, Time = 0.152 ms
+3/4: Throughput =  132.846 MElements/s, Time = 0.247 ms
+4/4: Throughput =  102.720 MElements/s, Time = 0.319 ms
+
+==== mgpuMergeSort_
+Sorting 32768 elements
+Sorting succeed.
+Throughput =   25.445 MElements/s, Time = 1.288 ms
+
+==== radixSort2_
+Sorting 32768 elements
+Sorting succeed.
+Throughput =    2.181 MElements/s, Time = 15.025343895 ms
+
+==== thrustOptmSort_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 32768 elements:
+Throughput =   68.131 MElements/s, Time = 0.481 ms
+Sort passed
+
+==== thrustSortSimple_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 32768 elements:
+Throughput =   53.005 MElements/s, Time = 0.618 ms
+
+==== cubBlkRadixSort_ 0
+Input array size : 32768
+1024 Ts |  1 elems/T: Throughput =   35.519 MElements/s, Time = 0.923 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 1
+Input array size : 32768
+ 512 Ts |  2 elems/T: Throughput =   47.585 MElements/s, Time = 0.689 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 2
+Input array size : 32768
+ 256 Ts |  4 elems/T: Throughput =   54.639 MElements/s, Time = 0.600 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 3
+Input array size : 32768
+ 128 Ts |  8 elems/T: Throughput =   53.509 MElements/s, Time = 0.612 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 4
+Input array size : 32768
+  64 Ts | 16 elems/T: Throughput =   54.504 MElements/s, Time = 0.601 ms
+Sorting succeed.
+
+==== cubBlkRadixSort_ 5
+Input array size : 32768
+  32 Ts | 32 elems/T: Throughput =   53.485 MElements/s, Time = 0.613 ms
+Sorting succeed.
+
+==== quickSort2_
+GeForce GT 720, CC 3.5.  VRAM 1.0 GB, 1001 MHz * 64-bit = 16 GB/s.  2 SM * 192 alu * 967 MHz * 2 = 0.74 TFLOPS
+Sorting 32769 elements
+Throughput =    5.701 MElements/s, Time = 5.748 ms
+Sorting Successful
