@@ -1,2 +1,2 @@
-# ParallelAlgHMWK
-Final Project - CUDA algorithms performance optimization techniques - https://goo.gl/yPq2t3
+# Parallel Algorithms
+**Final Project** - _CUDA algorithms performance optimization techniques_ - https://goo.gl/yPq2t3
